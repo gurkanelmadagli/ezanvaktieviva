@@ -25,13 +25,16 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <main class="uygulama">
-      <header class="ust-kisim">
-        <h1 id="appBaslik">Ezan Vakitleri ve Kaza Takip</h1>
-        <p id="appAciklama">Bulunduğun ili seç, güncel vakitleri gör, kazalarını takip et.</p>
-      </header>
+    <div id="yuklemeEkrani" class="yukleme-ekrani" aria-busy="true" aria-live="polite">
+      <div class="yukleme-icerik">
+        <div class="yukleme-logo" aria-hidden="true">🕌</div>
+        <p id="yuklemeMetin" class="yukleme-metin">Yükleniyor…</p>
+        <div class="yukleme-spinner" aria-hidden="true"></div>
+      </div>
+    </div>
 
-      <nav class="menu-sekme" aria-label="Alt menü">
+    <main class="uygulama">
+      <nav class="menu-sekme" aria-label="Ana menü">
         <button id="tabEzan" class="sekme-buton aktif" type="button" data-menu="ezan">🕌 Ezan</button>
         <button id="tabKuran" class="sekme-buton" type="button" data-menu="kuran">📖 Kur'an</button>
         <button id="tabKible" class="sekme-buton" type="button" data-menu="kible">🧭 Kıble</button>
@@ -62,6 +65,11 @@
           </div>
         </div>
       </nav>
+
+      <header class="ust-kisim">
+        <h1 id="appBaslik">Ezan Vakitleri ve Kaza Takip</h1>
+        <p id="appAciklama">Bulunduğun ili seç, güncel vakitleri gör, kazalarını takip et.</p>
+      </header>
 
       <section id="menuEzan">
         <section class="panel">

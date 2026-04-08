@@ -135,7 +135,7 @@ const DIL_METINLERI = {
       "Sunucudan anlık push için ayrı altyapı gerekir; bu uygulama izin verildiğinde cihazda zamanlanmış hatırlatmalar kullanır.",
     ayarKisayolBaslik: "Ana ekran kısayolu (Android)",
     ayarKisayolMetin:
-      "Tarayıcı menüsünden “Ana ekrana ekle” deyin. İkona uzun basınca Kıble, Vakitler, Kur’an ve Ayarlar kısayolları çıkar.",
+      "Sekmeler ekranın üstündedir. Tarayıcı menüsünden “Ana ekrana ekle” deyin; ikona uzun basınca Kıble, Vakitler, Kur’an ve Ayarlar kısayolları çıkar.",
     bildirimDurumuAcik: "Bildirimler açık. Ayarlardan öğüt, Cuma ve hatırlatmaları yönetebilirsin.",
     bildirimDurumuIlk: "Bildirim izni verildi. Ayarlardan türleri seçebilirsin.",
     hayirliCumalarBaslik: "Hayırlı Cumalar",
@@ -143,7 +143,8 @@ const DIL_METINLERI = {
     bildirimDurumuDestekYok: "Bu cihaz bildirimleri desteklemiyor.",
     bildirimDurumuKapali: "Bildirimler kapalı. Ezan sekmesinde Bildirimleri Aç’a dokun.",
     bildirimDurumuHata: "Bildirim gönderilemedi. Lütfen tekrar dene.",
-    bildirimDurumuIzinsiz: "Bildirim izni verilmedi."
+    bildirimDurumuIzinsiz: "Bildirim izni verilmedi.",
+    yuklemeEkran: "Yükleniyor…"
   },
   en: {
     appBaslik: "Prayer Times and Qada Tracker",
@@ -211,7 +212,7 @@ const DIL_METINLERI = {
       "True server push needs backend infrastructure; this app uses scheduled reminders on your device when allowed.",
     ayarKisayolBaslik: "Home screen shortcut (Android)",
     ayarKisayolMetin:
-      "Use “Add to Home screen” in the browser menu. Long-press the icon for Qibla, Times, Quran, and Settings shortcuts.",
+      "Tabs are at the top. Use “Add to Home screen” in the browser menu. Long-press the icon for Qibla, Times, Quran, and Settings shortcuts.",
     bildirimDurumuAcik: "Notifications on. Manage reminders in Settings.",
     bildirimDurumuIlk: "Permission granted. Choose notification types in Settings.",
     hayirliCumalarBaslik: "Jumu’ah Mubarak",
@@ -219,7 +220,8 @@ const DIL_METINLERI = {
     bildirimDurumuDestekYok: "This device does not support notifications.",
     bildirimDurumuKapali: "Notifications are off. Tap Enable Notifications on the Prayer tab.",
     bildirimDurumuHata: "Could not send notification. Please try again.",
-    bildirimDurumuIzinsiz: "Notification permission was not granted."
+    bildirimDurumuIzinsiz: "Notification permission was not granted.",
+    yuklemeEkran: "Loading…"
   },
   id: {
     appBaslik: "Waktu Salat dan Pelacak Qada",
@@ -287,7 +289,7 @@ const DIL_METINLERI = {
       "Push sungguhan dari server memerlukan backend; aplikasi ini memakai pengingat terjadwal di perangkat.",
     ayarKisayolBaslik: "Pintasan layar beranda (Android)",
     ayarKisayolMetin:
-      "Gunakan “Tambahkan ke Layar beranda” di menu browser. Tekan lama ikon untuk pintasan Kiblat, Waktu, Quran, dan Pengaturan.",
+      "Tab ada di atas. Gunakan “Tambahkan ke Layar beranda” di menu browser. Tekan lama ikon untuk pintasan Kiblat, Waktu, Quran, dan Pengaturan.",
     bildirimDurumuAcik: "Notifikasi aktif. Atur di Pengaturan.",
     bildirimDurumuIlk: "Izin diberikan. Pilih jenis notifikasi di Pengaturan.",
     hayirliCumalarBaslik: "Jumu’ah Mubarak",
@@ -295,7 +297,8 @@ const DIL_METINLERI = {
     bildirimDurumuDestekYok: "Perangkat ini tidak mendukung notifikasi.",
     bildirimDurumuKapali: "Notifikasi mati. Ketuk Aktifkan Notifikasi di tab Salat.",
     bildirimDurumuHata: "Notifikasi gagal. Coba lagi.",
-    bildirimDurumuIzinsiz: "Izin notifikasi tidak diberikan."
+    bildirimDurumuIzinsiz: "Izin notifikasi tidak diberikan.",
+    yuklemeEkran: "Memuat…"
   },
   ar: {
     appBaslik: "مواقيت الصلاة وتتبع القضاء",
@@ -363,7 +366,7 @@ const DIL_METINLERI = {
       "الإشعارات الفورية من الخادم تحتاج بنية خلفية؛ هذا التطبيق يستخدم تذكيرات مجدولة على جهازك.",
     ayarKisayolBaslik: "اختصار الشاشة الرئيسية (أندرويد)",
     ayarKisayolMetin:
-      "استخدم «إضافة إلى الشاشة الرئيسية» من قائمة المتصفح. اضغط مطولاً على الأيقونة لاختصارات القبلة والمواقيت والقرآن والإعدادات.",
+      "التبويبات في أعلى الشاشة. استخدم «إضافة إلى الشاشة الرئيسية» من قائمة المتصفح. اضغط مطولاً على الأيقونة لاختصارات القبلة والمواقيت والقرآن والإعدادات.",
     bildirimDurumuAcik: "الإشعارات مفعّلة. أدر الأنواع من الإعدادات.",
     bildirimDurumuIlk: "تم منح الإذن. اختر أنواع الإشعارات من الإعدادات.",
     hayirliCumalarBaslik: "جمعة مباركة",
@@ -371,13 +374,15 @@ const DIL_METINLERI = {
     bildirimDurumuDestekYok: "هذا الجهاز لا يدعم الإشعارات.",
     bildirimDurumuKapali: "الإشعارات مغلقة. اضغط «تفعيل الإشعارات» في تبويب الصلاة.",
     bildirimDurumuHata: "تعذر إرسال الإشعار. حاول مرة أخرى.",
-    bildirimDurumuIzinsiz: "لم يُمنح إذن الإشعارات."
+    bildirimDurumuIzinsiz: "لم يُمنح إذن الإشعارات.",
+    yuklemeEkran: "جاري التحميل…"
   }
 };
 let sayacIntervalId = null;
 let bildirimIntervalId = null;
 let sonTimings = null;
 let sonVakitlerKaynak = "il";
+let ilkVakitYuklemePromise = null;
 let kibleAcisi = null;
 let cihazBasligi = null;
 let kazaVeri = varsayilanVeri();
@@ -630,6 +635,11 @@ function diliUygula() {
       el.textContent = metinAl(id);
     }
   });
+
+  const yuklemeMetinEl = document.getElementById("yuklemeMetin");
+  if (yuklemeMetinEl) {
+    yuklemeMetinEl.textContent = metinAl("yuklemeEkran");
+  }
 
   document.documentElement.lang = seciliDil;
   document.body.dir = seciliDil === "ar" ? "rtl" : "ltr";
@@ -1051,6 +1061,73 @@ function apiIcinIlAdi(il) {
     .replace(/[\u0300-\u036f]/g, "");
 }
 
+function ilMetniTamEslestir(a, b) {
+  return apiIcinIlAdi(a).toLowerCase().trim() === apiIcinIlAdi(b).toLowerCase().trim();
+}
+
+function ilAdiniIllerListesiyleEslestir(hamMetin) {
+  if (!hamMetin || typeof hamMetin !== "string") {
+    return null;
+  }
+  const s = hamMetin.trim();
+  if (!s) {
+    return null;
+  }
+  const uzunlukSirali = [...ILLER].sort((a, b) => b.length - a.length);
+  for (const il of uzunlukSirali) {
+    if (ilMetniTamEslestir(s, il)) {
+      return il;
+    }
+  }
+  const sNorm = apiIcinIlAdi(s).toLowerCase();
+  for (const il of uzunlukSirali) {
+    const ilNorm = apiIcinIlAdi(il).toLowerCase();
+    if (ilNorm.length >= 4 && (sNorm.includes(ilNorm) || ilNorm.includes(sNorm))) {
+      return il;
+    }
+  }
+  return null;
+}
+
+async function koordinattanIlTahminEt(lat, lon) {
+  try {
+    const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${encodeURIComponent(lat)}&longitude=${encodeURIComponent(lon)}&localityLanguage=tr`;
+    const res = await fetch(url);
+    if (!res.ok) {
+      return null;
+    }
+    const data = await res.json();
+    if (data.countryCode && data.countryCode !== "TR") {
+      return null;
+    }
+    const sirali = [data.principalSubdivision, data.city, data.locality, data.administrative]
+      .filter((x) => x && String(x).trim());
+    for (const parca of sirali) {
+      const es = ilAdiniIllerListesiyleEslestir(String(parca));
+      if (es) {
+        return es;
+      }
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+function yuklemeEkraniniKapat() {
+  const el = document.getElementById("yuklemeEkrani");
+  if (!el || el.dataset.kapatildi === "1") {
+    return;
+  }
+  el.dataset.kapatildi = "1";
+  el.removeAttribute("aria-busy");
+  el.setAttribute("aria-hidden", "true");
+  el.classList.add("yukleme-ekrani--kapali");
+  window.setTimeout(() => {
+    el.classList.add("gizli");
+  }, 480);
+}
+
 function dereceyiNormalle(deger) {
   return (deger + 360) % 360;
 }
@@ -1447,7 +1524,8 @@ async function ezanVakitleriniYukle(il) {
 
 async function ezanVakitleriniKonumdanYukle() {
   const durumYazisi = document.getElementById("durumYazisi");
-  const il = document.getElementById("ilSecimi")?.value || seciliIliYukle();
+  const ilSecimi = document.getElementById("ilSecimi");
+  let il = ilSecimi?.value || seciliIliYukle();
   if (!uygulamaAyarlariOku().konumKullan) {
     durumYazisi.textContent = metinAl("kibleKonumKapali");
     return;
@@ -1456,6 +1534,12 @@ async function ezanVakitleriniKonumdanYukle() {
   try {
     const konum = await konumuAl();
     const { latitude, longitude } = konum.coords;
+    const tespitIl = await koordinattanIlTahminEt(latitude, longitude);
+    if (tespitIl && ilSecimi) {
+      ilSecimi.value = tespitIl;
+      seciliIliKaydet(tespitIl);
+      il = tespitIl;
+    }
     const timings = await vakitleriKoordinatlaCek(latitude, longitude);
     vakitleriUygula(il, timings, durumYazisi, {
       cevrimdisi: false,
@@ -1641,7 +1725,7 @@ function ilSeciminiBaslat() {
 
   const seciliIl = seciliIliYukle();
   ilSecimi.value = seciliIl;
-  ezanVakitleriniYukle(seciliIl);
+  ilkVakitYuklemePromise = ezanVakitleriniYukle(seciliIl);
 
   ilSecimi.addEventListener("change", (event) => {
     const il = event.target.value;
@@ -1694,3 +1778,14 @@ kuranMenusunuBaslat();
 kibleBulucuyuBaslat();
 kazaAksiyonlariniBaslat();
 servisWorkerKaydet();
+
+Promise.race([
+  ilkVakitYuklemePromise ?? Promise.resolve(),
+  new Promise((resolve) => {
+    window.setTimeout(resolve, 5000);
+  })
+]).finally(() => {
+  requestAnimationFrame(() => {
+    yuklemeEkraniniKapat();
+  });
+});
