@@ -1,22 +1,14 @@
 <!doctype html>
-<html lang="tr">
+<html lang="tr" translate="no" data-tema="gece">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="google" content="notranslate" />
     <meta name="theme-color" content="#0c1f1a" />
     <meta
       name="description"
       content="Namaz vakitleri, kıble, Kur’an, kaza takibi ve bildirimler. Eviva Software."
     />
-    <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./service-worker.js')
-        .then(reg => console.log('Service Worker kayıt edildi!', reg))
-        .catch(err => console.error('Service Worker kaydı başarısız:', err));
-    });
-  }
-</script>
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -43,7 +35,7 @@
         <button id="tabEzan" class="sekme-buton aktif" type="button" data-menu="ezan">🕌 Ezan</button>
         <button id="tabKuran" class="sekme-buton" type="button" data-menu="kuran">📖 Kur'an</button>
         <button id="tabKible" class="sekme-buton" type="button" data-menu="kible">🧭 Kıble</button>
-        <button id="tabKaza" class="sekme-buton" type="button" data-menu="kaza">📿 Kaza</button>
+        <button id="tabKaza" class="sekme-buton" type="button" data-menu="kaza">📿 Kaza Namazları</button>
         <button id="tabAyarlar" class="sekme-buton" type="button" data-menu="ayarlar">⚙️ Ayarlar</button>
         <div class="menu-ayar-alani">
           <button id="ayarlarBtn" class="ayarlar-buton" type="button" aria-label="Dil Seçimi">
@@ -78,20 +70,28 @@
             <div class="secim-alani">
               <label id="ilEtiket" for="ilSecimi">İl:</label>
               <select id="ilSecimi"></select>
+              <button id="konumdanVakitBtn" class="yenile-buton" type="button">Konumdan al</button>
               <button id="yenileBtn" class="yenile-buton" type="button">Yenile</button>
             </div>
           </div>
-          <div class="kalan-sure-kutu">
+          <p id="cevrimdisiBanner" class="cevrimdisi-banner gizli" role="status"></p>
+          <div id="kalanSureKutu" class="kalan-sure-kutu">
             <p id="sonrakiVakitEtiket" class="kalan-etiket">Sonraki vakit</p>
             <p id="sonrakiVakitAdi" class="kalan-vakit">--</p>
             <p id="kalanSure" class="kalan-sure">--:--:--</p>
           </div>
           <p id="durumYazisi" class="durum-yazisi">Vakitler yükleniyor...</p>
+          <div class="paylas-satir">
+            <button id="paylasVakitlerBtn" class="yenile-buton" type="button">Vakitleri paylaş</button>
+          </div>
           <section class="ezan-kartlar" id="ezanKartlar"></section>
           <div class="hadis-kutu">
             <div class="hadis-ust">
               <p id="hadisBaslik" class="hadis-baslik">Günün Hadisi</p>
-              <button id="bildirimIzinBtn" class="yenile-buton" type="button">Bildirimleri Aç</button>
+              <div class="hadis-ust-butonlar">
+                <button id="paylasHadisBtn" class="yenile-buton" type="button">Paylaş</button>
+                <button id="bildirimIzinBtn" class="yenile-buton" type="button">Bildirimleri Aç</button>
+              </div>
             </div>
             <p id="hadisMetni" class="hadis-metin">Yükleniyor...</p>
             <p id="bildirimDurum" class="durum-yazisi">5 saatte bir öğüt bildirimi için izin verebilirsin.</p>
@@ -153,6 +153,7 @@
           <p id="ayarlarAciklama" class="durum-yazisi ayarlar-aciklama">
             Bildirimler için önce Ezan sekmesindeki “Bildirimleri Aç” ile izin ver.
           </p>
+          <p id="ayarBildirimNotu" class="durum-yazisi ayarlar-not"></p>
           <ul class="ayar-listesi" role="list">
             <li class="ayar-satir">
               <div class="ayar-satir-metin">
@@ -176,6 +177,36 @@
             </li>
             <li class="ayar-satir">
               <div class="ayar-satir-metin">
+                <span id="ayarTitresimEtiket" class="ayar-etiket">Dokunuşta hafif titreşim</span>
+                <span id="ayarTitresimAlt" class="ayar-alt">Butonlara basınca kısa titreşim (destekleyen cihazlarda).</span>
+              </div>
+              <label class="anahtar">
+                <input id="ayarTitresimAcik" type="checkbox" role="switch" checked />
+                <span class="anahtar-slider" aria-hidden="true"></span>
+              </label>
+            </li>
+            <li class="ayar-satir">
+              <div class="ayar-satir-metin">
+                <span id="ayarManeviOgutEtiket" class="ayar-etiket">Manevi öğüt bildirimleri</span>
+                <span id="ayarManeviOgutAlt" class="ayar-alt">Yaklaşık 5 saatte bir kısa hatırlatma (uygulama açıkken veya arka plandayken).</span>
+              </div>
+              <label class="anahtar">
+                <input id="ayarManeviOgut" type="checkbox" role="switch" checked />
+                <span class="anahtar-slider" aria-hidden="true"></span>
+              </label>
+            </li>
+            <li class="ayar-satir">
+              <div class="ayar-satir-metin">
+                <span id="ayarCumaEtiket" class="ayar-etiket">Cuma sabahı kutlama</span>
+                <span id="ayarCumaAlt" class="ayar-alt">Cuma günü sabah saatlerinde bir kez hayırlı cumalar bildirimi.</span>
+              </div>
+              <label class="anahtar">
+                <input id="ayarCumaBildirim" type="checkbox" role="switch" />
+                <span class="anahtar-slider" aria-hidden="true"></span>
+              </label>
+            </li>
+            <li class="ayar-satir">
+              <div class="ayar-satir-metin">
                 <span id="ayarHadisEtiket" class="ayar-etiket">Günün Hadisi bildirimleri</span>
                 <span id="ayarHadisAlt" class="ayar-alt">Her gün bir kez günün hadisini bildirir.</span>
               </div>
@@ -185,6 +216,10 @@
               </label>
             </li>
           </ul>
+          <div class="ayar-kisayol-kutu">
+            <p id="ayarKisayolBaslik" class="ayar-baslik">Ana ekran kısayolu</p>
+            <p id="ayarKisayolMetin" class="ayar-alt"></p>
+          </div>
           <div class="ayar-secim-blok">
             <label id="ayarEzanOnceEtiket" class="ayar-etiket ayar-secim-etiket" for="ayarEzanHatirlatma"
               >Ezan vakitlerinden önce bildirim</label

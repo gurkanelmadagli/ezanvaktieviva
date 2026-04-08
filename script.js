@@ -8,6 +8,8 @@ const BES_SAAT_MS = 5 * 60 * 60 * 1000;
 const SECILI_SURE_ANAHTARI = "secili_sure_v1";
 const SECILI_DIL_ANAHTARI = "secili_dil_v1";
 const UYGULAMA_AYARLARI_ANAHTARI = "uygulama_ayarlari_v1";
+const VAKITLER_ONBELLEK_ANAHTARI = "ezan_vakit_onbellek_v1";
+const VAKITLER_GPS_ONBELLEK_ANAHTARI = "ezan_vakit_gps_onbellek_v1";
 const SON_HADIS_BILDIRIM_GUNU_ANAHTARI = "son_hadis_bildirim_gunu_v1";
 const NAMAZ_VAKTI_ARALIK_MS = 40 * 60 * 1000;
 const EZAN_HATIRLATMA_DEPOLAMA_ON_EKI = "ezan_hat_";
@@ -71,7 +73,7 @@ const DIL_METINLERI = {
     tabEzan: "🕌 Ezan",
     tabKuran: "📖 Kur'an",
     tabKible: "🧭 Kıble",
-    tabKaza: "📿 Kaza",
+    tabKaza: "📿 Kaza Namazları",
     ezanBaslik: "Bugünün Ezan Vakitleri",
     ilEtiket: "İl:",
     yenileBtn: "Yenile",
@@ -108,7 +110,40 @@ const DIL_METINLERI = {
     ayarEzanDkOnce: "{n} dakika önce",
     kibleKonumKapali: "Konum ayarlarda kapalı. Açmak için Ayarlar sekmesinden Konum’u etkinleştir.",
     hadisBildirimBaslik: "Günün Hadisi",
-    ezanHatirlatmaBaslik: "Namaz vakti yaklaşıyor"
+    ezanHatirlatmaBaslik: "Namaz vakti yaklaşıyor",
+    konumdanVakitBtn: "Konumdan al",
+    paylasVakitlerBtn: "Vakitleri paylaş",
+    paylasHadisBtn: "Paylaş",
+    cevrimdisiBanner: "Çevrimdışı: Son kaydedilen bugünün vakitleri gösteriliyor.",
+    durumCevrimdisi: "{il} · son kayıtlı vakitler (ağ yok)",
+    durumCevrimdisiGps: "Son konuma göre kayıtlı vakitler (ağ yok)",
+    durumYukleniyor: "{il} için vakitler yükleniyor...",
+    durumVakitGunluk: "{il} için bugünün ezan vakitleri",
+    durumVakitHata: "Vakitler alınamadı. Bağlantını kontrol edip Yenile’ye bas.",
+    durumKonumVakit: "Konumunuza göre bugünün vakitleri güncellendi.",
+    durumKonumAliniyor: "Konum ve vakitler alınıyor...",
+    paylasVakitBaslik: "Namaz vakitleri",
+    paylasKonumSatiri: "(Konuma göre)",
+    ayarTitresimEtiket: "Dokunuşta hafif titreşim",
+    ayarTitresimAlt: "Butonlara basınca kısa titreşim (destekleyen cihazlarda).",
+    ayarManeviOgutEtiket: "Manevi öğüt bildirimleri",
+    ayarManeviOgutAlt:
+      "Yaklaşık 5 saatte bir kısa hatırlatma — uygulama açık veya arka plandayken çalışır.",
+    ayarCumaEtiket: "Cuma sabahı kutlama",
+    ayarCumaAlt: "Cuma günü sabah saatlerinde bir kez hayırlı cumalar bildirimi.",
+    ayarBildirimNotu:
+      "Sunucudan anlık push için ayrı altyapı gerekir; bu uygulama izin verildiğinde cihazda zamanlanmış hatırlatmalar kullanır.",
+    ayarKisayolBaslik: "Ana ekran kısayolu (Android)",
+    ayarKisayolMetin:
+      "Tarayıcı menüsünden “Ana ekrana ekle” deyin. İkona uzun basınca Kıble, Vakitler, Kur’an ve Ayarlar kısayolları çıkar.",
+    bildirimDurumuAcik: "Bildirimler açık. Ayarlardan öğüt, Cuma ve hatırlatmaları yönetebilirsin.",
+    bildirimDurumuIlk: "Bildirim izni verildi. Ayarlardan türleri seçebilirsin.",
+    hayirliCumalarBaslik: "Hayırlı Cumalar",
+    hayirliCumalarGovde: "Allah kabul etsin. Hayırlı ve bereketli bir Cuma dileriz.",
+    bildirimDurumuDestekYok: "Bu cihaz bildirimleri desteklemiyor.",
+    bildirimDurumuKapali: "Bildirimler kapalı. Ezan sekmesinde Bildirimleri Aç’a dokun.",
+    bildirimDurumuHata: "Bildirim gönderilemedi. Lütfen tekrar dene.",
+    bildirimDurumuIzinsiz: "Bildirim izni verilmedi."
   },
   en: {
     appBaslik: "Prayer Times and Qada Tracker",
@@ -152,7 +187,39 @@ const DIL_METINLERI = {
     ayarEzanDkOnce: "{n} min before",
     kibleKonumKapali: "Location is off in Settings. Turn on Location in the Settings tab.",
     hadisBildirimBaslik: "Daily Hadith",
-    ezanHatirlatmaBaslik: "Prayer time approaching"
+    ezanHatirlatmaBaslik: "Prayer time approaching",
+    konumdanVakitBtn: "Use location",
+    paylasVakitlerBtn: "Share times",
+    paylasHadisBtn: "Share",
+    cevrimdisiBanner: "Offline: showing the last saved prayer times for today.",
+    durumCevrimdisi: "{il} · cached times (no network)",
+    durumCevrimdisiGps: "Cached times for your last location (offline)",
+    durumYukleniyor: "Loading times for {il}...",
+    durumVakitGunluk: "Today’s prayer times for {il}",
+    durumVakitHata: "Could not load times. Check your connection and tap Refresh.",
+    durumKonumVakit: "Today’s times updated for your location.",
+    durumKonumAliniyor: "Getting location and times...",
+    paylasVakitBaslik: "Prayer times",
+    paylasKonumSatiri: "(By location)",
+    ayarTitresimEtiket: "Light haptic on tap",
+    ayarTitresimAlt: "Short vibration on buttons (where supported).",
+    ayarManeviOgutEtiket: "Spiritual reminder notifications",
+    ayarManeviOgutAlt: "About every 5 hours while the app is open or in the background.",
+    ayarCumaEtiket: "Friday morning greeting",
+    ayarCumaAlt: "Once on Friday morning — a Jumu’ah message.",
+    ayarBildirimNotu:
+      "True server push needs backend infrastructure; this app uses scheduled reminders on your device when allowed.",
+    ayarKisayolBaslik: "Home screen shortcut (Android)",
+    ayarKisayolMetin:
+      "Use “Add to Home screen” in the browser menu. Long-press the icon for Qibla, Times, Quran, and Settings shortcuts.",
+    bildirimDurumuAcik: "Notifications on. Manage reminders in Settings.",
+    bildirimDurumuIlk: "Permission granted. Choose notification types in Settings.",
+    hayirliCumalarBaslik: "Jumu’ah Mubarak",
+    hayirliCumalarGovde: "May Allah accept from you. Have a blessed Friday.",
+    bildirimDurumuDestekYok: "This device does not support notifications.",
+    bildirimDurumuKapali: "Notifications are off. Tap Enable Notifications on the Prayer tab.",
+    bildirimDurumuHata: "Could not send notification. Please try again.",
+    bildirimDurumuIzinsiz: "Notification permission was not granted."
   },
   id: {
     appBaslik: "Waktu Salat dan Pelacak Qada",
@@ -196,7 +263,39 @@ const DIL_METINLERI = {
     ayarEzanDkOnce: "{n} menit sebelum",
     kibleKonumKapali: "Lokasi dimatikan di Pengaturan. Aktifkan Lokasi di tab Pengaturan.",
     hadisBildirimBaslik: "Hadits Hari Ini",
-    ezanHatirlatmaBaslik: "Waktu salat mendekat"
+    ezanHatirlatmaBaslik: "Waktu salat mendekat",
+    konumdanVakitBtn: "Dari lokasi",
+    paylasVakitlerBtn: "Bagikan waktu",
+    paylasHadisBtn: "Bagikan",
+    cevrimdisiBanner: "Offline: menampilkan waktu terakhir yang disimpan untuk hari ini.",
+    durumCevrimdisi: "{il} · waktu tersimpan (tanpa jaringan)",
+    durumCevrimdisiGps: "Waktu terakhir menurut lokasi Anda (offline)",
+    durumYukleniyor: "Memuat waktu untuk {il}...",
+    durumVakitGunluk: "Waktu salat hari ini — {il}",
+    durumVakitHata: "Waktu tidak bisa dimuat. Periksa koneksi dan ketuk Muat Ulang.",
+    durumKonumVakit: "Waktu hari ini diperbarui menurut lokasi Anda.",
+    durumKonumAliniyor: "Mengambil lokasi dan waktu...",
+    paylasVakitBaslik: "Waktu salat",
+    paylasKonumSatiri: "(Menurut lokasi)",
+    ayarTitresimEtiket: "Getaran ringan saat ketuk",
+    ayarTitresimAlt: "Getaran singkat pada tombol (jika didukung).",
+    ayarManeviOgutEtiket: "Notifikasi pengingat rohani",
+    ayarManeviOgutAlt: "Sekitar setiap 5 jam saat aplikasi terbuka atau di latar belakang.",
+    ayarCumaEtiket: "Ucapan Jumat pagi",
+    ayarCumaAlt: "Sekali pada Jumat pagi — pesan Jumu’ah.",
+    ayarBildirimNotu:
+      "Push sungguhan dari server memerlukan backend; aplikasi ini memakai pengingat terjadwal di perangkat.",
+    ayarKisayolBaslik: "Pintasan layar beranda (Android)",
+    ayarKisayolMetin:
+      "Gunakan “Tambahkan ke Layar beranda” di menu browser. Tekan lama ikon untuk pintasan Kiblat, Waktu, Quran, dan Pengaturan.",
+    bildirimDurumuAcik: "Notifikasi aktif. Atur di Pengaturan.",
+    bildirimDurumuIlk: "Izin diberikan. Pilih jenis notifikasi di Pengaturan.",
+    hayirliCumalarBaslik: "Jumu’ah Mubarak",
+    hayirliCumalarGovde: "Semoga Allah menerima. Semoga Jumat Anda diberkahi.",
+    bildirimDurumuDestekYok: "Perangkat ini tidak mendukung notifikasi.",
+    bildirimDurumuKapali: "Notifikasi mati. Ketuk Aktifkan Notifikasi di tab Salat.",
+    bildirimDurumuHata: "Notifikasi gagal. Coba lagi.",
+    bildirimDurumuIzinsiz: "Izin notifikasi tidak diberikan."
   },
   ar: {
     appBaslik: "مواقيت الصلاة وتتبع القضاء",
@@ -240,12 +339,45 @@ const DIL_METINLERI = {
     ayarEzanDkOnce: "قبل {n} دقيقة",
     kibleKonumKapali: "الموقع معطّل في الإعدادات. فعّل الموقع من تبويب الإعدادات.",
     hadisBildirimBaslik: "حديث اليوم",
-    ezanHatirlatmaBaslik: "اقترب وقت الصلاة"
+    ezanHatirlatmaBaslik: "اقترب وقت الصلاة",
+    konumdanVakitBtn: "بالموقع",
+    paylasVakitlerBtn: "مشاركة المواقيت",
+    paylasHadisBtn: "مشاركة",
+    cevrimdisiBanner: "دون اتصال: عرض آخر مواقيت محفوظة لليوم.",
+    durumCevrimdisi: "{il} · مواقيت محفوظة (لا يوجد شبكة)",
+    durumCevrimdisiGps: "آخر مواقيت حسب موقعك (دون اتصال)",
+    durumYukleniyor: "جاري تحميل مواقيت {il}...",
+    durumVakitGunluk: "مواقيت اليوم — {il}",
+    durumVakitHata: "تعذر تحميل المواقيت. تحقق من الاتصال واضغط تحديث.",
+    durumKonumVakit: "تم تحديث مواقيت اليوم حسب موقعك.",
+    durumKonumAliniyor: "جاري جلب الموقع والمواقيت...",
+    paylasVakitBaslik: "مواقيت الصلاة",
+    paylasKonumSatiri: "(حسب الموقع)",
+    ayarTitresimEtiket: "اهتزاز خفيف عند اللمس",
+    ayarTitresimAlt: "اهتزاز قصير عند الأزرار (إن وُجدت).",
+    ayarManeviOgutEtiket: "تذكيرات روحية",
+    ayarManeviOgutAlt: "تقريباً كل 5 ساعات عند فتح التطبيق أو في الخلفية.",
+    ayarCumaEtiket: "تهنئة صباح الجمعة",
+    ayarCumaAlt: "مرة واحدة صباح الجمعة — رسالة مباركة.",
+    ayarBildirimNotu:
+      "الإشعارات الفورية من الخادم تحتاج بنية خلفية؛ هذا التطبيق يستخدم تذكيرات مجدولة على جهازك.",
+    ayarKisayolBaslik: "اختصار الشاشة الرئيسية (أندرويد)",
+    ayarKisayolMetin:
+      "استخدم «إضافة إلى الشاشة الرئيسية» من قائمة المتصفح. اضغط مطولاً على الأيقونة لاختصارات القبلة والمواقيت والقرآن والإعدادات.",
+    bildirimDurumuAcik: "الإشعارات مفعّلة. أدر الأنواع من الإعدادات.",
+    bildirimDurumuIlk: "تم منح الإذن. اختر أنواع الإشعارات من الإعدادات.",
+    hayirliCumalarBaslik: "جمعة مباركة",
+    hayirliCumalarGovde: "تقبل الله منكم. جمعاً مباركاً.",
+    bildirimDurumuDestekYok: "هذا الجهاز لا يدعم الإشعارات.",
+    bildirimDurumuKapali: "الإشعارات مغلقة. اضغط «تفعيل الإشعارات» في تبويب الصلاة.",
+    bildirimDurumuHata: "تعذر إرسال الإشعار. حاول مرة أخرى.",
+    bildirimDurumuIzinsiz: "لم يُمنح إذن الإشعارات."
   }
 };
 let sayacIntervalId = null;
 let bildirimIntervalId = null;
 let sonTimings = null;
+let sonVakitlerKaynak = "il";
 let kibleAcisi = null;
 let cihazBasligi = null;
 let kazaVeri = varsayilanVeri();
@@ -307,7 +439,10 @@ function varsayilanUygulamaAyarlari() {
     otomatikSessiz: false,
     konumKullan: true,
     gununHadisiBildirim: false,
-    ezanHatirlatmaDk: 0
+    ezanHatirlatmaDk: 0,
+    maneviOgutBildirim: true,
+    cumaSabahiBildirim: false,
+    titresimAcik: true
   };
 }
 
@@ -325,7 +460,10 @@ function uygulamaAyarlariOku() {
       otomatikSessiz: Boolean(kayit.otomatikSessiz),
       konumKullan: kayit.konumKullan !== false,
       gununHadisiBildirim: Boolean(kayit.gununHadisiBildirim),
-      ezanHatirlatmaDk: dkGecerli
+      ezanHatirlatmaDk: dkGecerli,
+      maneviOgutBildirim: kayit.maneviOgutBildirim !== false,
+      cumaSabahiBildirim: Boolean(kayit.cumaSabahiBildirim),
+      titresimAcik: kayit.titresimAcik !== false
     };
   } catch {
     return varsayilanUygulamaAyarlari();
@@ -446,17 +584,29 @@ function diliUygula() {
     "tabAyarlar",
     "ayarlarBaslik",
     "ayarlarAciklama",
+    "ayarBildirimNotu",
     "ayarSessizEtiket",
     "ayarSessizAlt",
     "ayarKonumEtiket",
     "ayarKonumAlt",
+    "ayarTitresimEtiket",
+    "ayarTitresimAlt",
+    "ayarManeviOgutEtiket",
+    "ayarManeviOgutAlt",
+    "ayarCumaEtiket",
+    "ayarCumaAlt",
     "ayarHadisEtiket",
     "ayarHadisAlt",
     "ayarEzanOnceEtiket",
     "ayarEzanOnceAlt",
+    "ayarKisayolBaslik",
+    "ayarKisayolMetin",
     "ezanBaslik",
     "ilEtiket",
+    "konumdanVakitBtn",
     "yenileBtn",
+    "paylasVakitlerBtn",
+    "paylasHadisBtn",
     "sonrakiVakitEtiket",
     "hadisBaslik",
     "bildirimIzinBtn",
@@ -653,6 +803,27 @@ async function gunlukHadisBildirimiKontrol() {
   localStorage.setItem(SON_HADIS_BILDIRIM_GUNU_ANAHTARI, bugun);
 }
 
+async function cumaSabahiBildirimiKontrol() {
+  const ayar = uygulamaAyarlariOku();
+  if (!ayar.cumaSabahiBildirim || Notification.permission !== "granted") {
+    return;
+  }
+  const d = new Date();
+  if (d.getDay() !== 5) {
+    return;
+  }
+  const saat = d.getHours();
+  if (saat < 8 || saat >= 12) {
+    return;
+  }
+  const anahtar = `cuma_bildirim_${bugunTarihAnahtari()}`;
+  if (localStorage.getItem(anahtar)) {
+    return;
+  }
+  await bildirimGonderIcerik(metinAl("hayirliCumalarBaslik"), metinAl("hayirliCumalarGovde"));
+  localStorage.setItem(anahtar, "1");
+}
+
 async function ezanHatirlatmaKontrol() {
   const ayar = uygulamaAyarlariOku();
   const dk = ayar.ezanHatirlatmaDk;
@@ -688,15 +859,15 @@ async function ezanHatirlatmaKontrol() {
 
 async function bildirimDongusunuCalistir() {
   if (!("Notification" in window)) {
-    bildirimDurumuYaz("Bu cihaz bildirimleri desteklemiyor.");
+    bildirimDurumuYaz(metinAl("bildirimDurumuDestekYok"));
     return;
   }
   if (Notification.permission !== "granted") {
-    bildirimDurumuYaz("Bildirimler kapalı. Öğüt bildirimi için Bildirimleri Aç'a dokun.");
+    bildirimDurumuYaz(metinAl("bildirimDurumuKapali"));
     return;
   }
 
-  bildirimDurumuYaz("Bildirimler açık. 5 saatte bir manevi öğüt gönderilecek.");
+  bildirimDurumuYaz(metinAl("bildirimDurumuAcik"));
 
   if (bildirimIntervalId !== null) {
     clearInterval(bildirimIntervalId);
@@ -704,18 +875,22 @@ async function bildirimDongusunuCalistir() {
   }
 
   const kontrolVeGonder = async () => {
-    const sonZaman = Number(localStorage.getItem(SON_BILDIRIM_ZAMANI_ANAHTARI) || 0);
+    const ayar = uygulamaAyarlariOku();
     const simdi = Date.now();
-    if (simdi - sonZaman >= BES_SAAT_MS) {
-      await ogutBildirimiGonder();
-      localStorage.setItem(SON_BILDIRIM_ZAMANI_ANAHTARI, String(simdi));
+    if (ayar.maneviOgutBildirim) {
+      const sonZaman = Number(localStorage.getItem(SON_BILDIRIM_ZAMANI_ANAHTARI) || 0);
+      if (simdi - sonZaman >= BES_SAAT_MS) {
+        await ogutBildirimiGonder();
+        localStorage.setItem(SON_BILDIRIM_ZAMANI_ANAHTARI, String(simdi));
+      }
     }
     await gunlukHadisBildirimiKontrol().catch(() => {});
+    await cumaSabahiBildirimiKontrol().catch(() => {});
     await ezanHatirlatmaKontrol().catch(() => {});
   };
 
   kontrolVeGonder().catch(() => {
-    bildirimDurumuYaz("Bildirim gönderilemedi. Lütfen tekrar dene.");
+    bildirimDurumuYaz(metinAl("bildirimDurumuHata"));
   });
   bildirimIntervalId = window.setInterval(() => {
     kontrolVeGonder().catch(() => {});
@@ -730,15 +905,15 @@ function bildirimleriBaslat() {
 
   izinBtn.addEventListener("click", async () => {
     if (!("Notification" in window)) {
-      bildirimDurumuYaz("Bu cihaz bildirimleri desteklemiyor.");
+      bildirimDurumuYaz(metinAl("bildirimDurumuDestekYok"));
       return;
     }
     const izin = await Notification.requestPermission();
     if (izin === "granted") {
-      bildirimDurumuYaz("Bildirim izni verildi. 5 saatte bir öğüt gönderilecek.");
+      bildirimDurumuYaz(metinAl("bildirimDurumuIlk"));
       await bildirimDongusunuCalistir();
     } else {
-      bildirimDurumuYaz("Bildirim izni verilmedi.");
+      bildirimDurumuYaz(metinAl("bildirimDurumuIzinsiz"));
     }
   });
 
@@ -798,7 +973,7 @@ function sonrakiVakitiBul(timings) {
     const saat = saatiTemizle(timings[vakit.alan]);
     const vakitTarihi = vakitTarihiOlustur(saat, simdi);
     if (vakitTarihi > simdi) {
-      return { etiket: vakit.etiket, zaman: vakitTarihi };
+      return { etiket: vakit.etiket, zaman: vakitTarihi, alan: vakit.alan };
     }
   }
 
@@ -806,7 +981,26 @@ function sonrakiVakitiBul(timings) {
   yarin.setDate(yarin.getDate() + 1);
   const ilkVakit = EZAN_GOSTERIM_SIRASI[0];
   const ilkSaat = saatiTemizle(timings[ilkVakit.alan]);
-  return { etiket: ilkVakit.etiket, zaman: vakitTarihiOlustur(ilkSaat, yarin) };
+  return { etiket: ilkVakit.etiket, zaman: vakitTarihiOlustur(ilkSaat, yarin), alan: ilkVakit.alan };
+}
+
+function geceModuMu(timings) {
+  if (!timings) {
+    return true;
+  }
+  const simdi = new Date();
+  const bugun = new Date(simdi);
+  const ishaMs = vakitTarihiOlustur(saatiTemizle(timings.Isha), bugun).getTime();
+  const fajrMs = vakitTarihiOlustur(saatiTemizle(timings.Fajr), bugun).getTime();
+  const simdiMs = simdi.getTime();
+  return simdiMs >= ishaMs || simdiMs < fajrMs;
+}
+
+function vakitTemasiniUygula(timings) {
+  const gece = geceModuMu(timings);
+  document.documentElement.dataset.tema = gece ? "gece" : "gunduz";
+  const renk = gece ? "#0c101d" : "#e8ecf4";
+  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", renk);
 }
 
 function sayaçGuncelle() {
@@ -818,6 +1012,13 @@ function sayaçGuncelle() {
   const kalan = sonraki.zaman.getTime() - Date.now();
   document.getElementById("sonrakiVakitAdi").textContent = sonraki.etiket;
   document.getElementById("kalanSure").textContent = msToSaatDakikaSaniye(kalan);
+  vakitTemasiniUygula(sonTimings);
+  const kutu = document.getElementById("kalanSureKutu");
+  if (kutu) {
+    const birSaat = 60 * 60 * 1000;
+    const vurgu = sonraki.alan === "Maghrib" || (kalan > 0 && kalan <= birSaat);
+    kutu.classList.toggle("sonraki-vurgulu", vurgu);
+  }
 }
 
 function sayaçBaslat(timings) {
@@ -831,12 +1032,15 @@ function sayaçBaslat(timings) {
 
 function sayaçTemizle() {
   sonTimings = null;
+  sonVakitlerKaynak = "il";
   if (sayacIntervalId) {
     clearInterval(sayacIntervalId);
     sayacIntervalId = null;
   }
   document.getElementById("sonrakiVakitAdi").textContent = "--";
   document.getElementById("kalanSure").textContent = "--:--:--";
+  document.getElementById("kalanSureKutu")?.classList.remove("sonraki-vurgulu");
+  vakitTemasiniUygula(null);
 }
 
 function apiIcinIlAdi(il) {
@@ -1092,36 +1296,179 @@ async function kuranMenusunuBaslat() {
   });
 }
 
+function vakitOnbellekOku() {
+  try {
+    const ham = localStorage.getItem(VAKITLER_ONBELLEK_ANAHTARI);
+    if (!ham) {
+      return null;
+    }
+    return JSON.parse(ham);
+  } catch {
+    return null;
+  }
+}
+
+function vakitOnbellekKaydet(il, timings) {
+  localStorage.setItem(
+    VAKITLER_ONBELLEK_ANAHTARI,
+    JSON.stringify({ il, tarih: bugunTarihAnahtari(), timings })
+  );
+}
+
+function vakitGpsOnbellekOku() {
+  try {
+    const ham = localStorage.getItem(VAKITLER_GPS_ONBELLEK_ANAHTARI);
+    if (!ham) {
+      return null;
+    }
+    return JSON.parse(ham);
+  } catch {
+    return null;
+  }
+}
+
+function vakitGpsOnbellekKaydet(timings) {
+  localStorage.setItem(
+    VAKITLER_GPS_ONBELLEK_ANAHTARI,
+    JSON.stringify({ tarih: bugunTarihAnahtari(), timings })
+  );
+}
+
+async function vakitleriIlIleCek(il) {
+  const ilApi = apiIcinIlAdi(il);
+  const url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(ilApi)}&country=Turkey&method=13`;
+  const yanit = await fetch(url);
+  if (!yanit.ok) {
+    throw new Error("sunucu");
+  }
+  const sonuc = await yanit.json();
+  const timings = sonuc?.data?.timings;
+  if (!timings) {
+    throw new Error("veri");
+  }
+  return timings;
+}
+
+async function vakitleriKoordinatlaCek(lat, lon) {
+  const url = `https://api.aladhan.com/v1/timings?latitude=${encodeURIComponent(lat)}&longitude=${encodeURIComponent(lon)}&method=13`;
+  const yanit = await fetch(url);
+  if (!yanit.ok) {
+    throw new Error("sunucu");
+  }
+  const sonuc = await yanit.json();
+  const timings = sonuc?.data?.timings;
+  if (!timings) {
+    throw new Error("veri");
+  }
+  return timings;
+}
+
+function vakitleriUygula(il, timings, durumYazisi, secenekler = {}) {
+  const {
+    cevrimdisi = false,
+    onbellekModu = "il",
+    durumMetni = null
+  } = secenekler;
+  const ezanKartlarAlani = document.getElementById("ezanKartlar");
+  ezanKartlarAlani.innerHTML = "";
+  EZAN_GOSTERIM_SIRASI.forEach((vakit) => {
+    const saat = saatiTemizle(timings[vakit.alan]);
+    ezanKartlarAlani.appendChild(ezanKartiOlustur(vakit.etiket, saat));
+  });
+  sayaçBaslat(timings);
+  if (onbellekModu === "il") {
+    vakitOnbellekKaydet(il, timings);
+    sonVakitlerKaynak = "il";
+  } else if (onbellekModu === "gps") {
+    vakitGpsOnbellekKaydet(timings);
+    sonVakitlerKaynak = "gps";
+  }
+  const ban = document.getElementById("cevrimdisiBanner");
+  if (ban) {
+    ban.classList.toggle("gizli", !cevrimdisi);
+    if (cevrimdisi) {
+      ban.textContent = metinAl("cevrimdisiBanner");
+    }
+  }
+  if (durumYazisi) {
+    if (durumMetni) {
+      durumYazisi.textContent = durumMetni;
+    } else if (cevrimdisi) {
+      durumYazisi.textContent = metinAl("durumCevrimdisi").replace("{il}", il);
+    } else {
+      durumYazisi.textContent = metinAl("durumVakitGunluk").replace("{il}", il);
+    }
+  }
+}
+
+function bugunlukOnbellektenDene(il, durumYazisi) {
+  const bugun = bugunTarihAnahtari();
+  const ob = vakitOnbellekOku();
+  if (ob && ob.il === il && ob.tarih === bugun && ob.timings) {
+    vakitleriUygula(il, ob.timings, durumYazisi, {
+      cevrimdisi: true,
+      onbellekModu: "yok",
+      durumMetni: metinAl("durumCevrimdisi").replace("{il}", il)
+    });
+    sonVakitlerKaynak = "il";
+    return true;
+  }
+  const gpsOb = vakitGpsOnbellekOku();
+  if (gpsOb && gpsOb.tarih === bugun && gpsOb.timings) {
+    vakitleriUygula(il, gpsOb.timings, durumYazisi, {
+      cevrimdisi: true,
+      onbellekModu: "yok",
+      durumMetni: metinAl("durumCevrimdisiGps")
+    });
+    sonVakitlerKaynak = "gps";
+    return true;
+  }
+  return false;
+}
+
 async function ezanVakitleriniYukle(il) {
   const ezanKartlarAlani = document.getElementById("ezanKartlar");
   const durumYazisi = document.getElementById("durumYazisi");
   ezanKartlarAlani.innerHTML = "";
-  durumYazisi.textContent = `${il} için vakitler yükleniyor...`;
+  durumYazisi.textContent = metinAl("durumYukleniyor").replace("{il}", il);
 
   try {
-    const ilApi = apiIcinIlAdi(il);
-    const url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(ilApi)}&country=Turkey&method=13`;
-    const yanit = await fetch(url);
-    if (!yanit.ok) {
-      throw new Error("Sunucu hatasi");
-    }
-
-    const sonuc = await yanit.json();
-    const timings = sonuc?.data?.timings;
-    if (!timings) {
-      throw new Error("Vakit verisi alinamadi");
-    }
-
-    EZAN_GOSTERIM_SIRASI.forEach((vakit) => {
-      const saat = saatiTemizle(timings[vakit.alan]);
-      ezanKartlarAlani.appendChild(ezanKartiOlustur(vakit.etiket, saat));
-    });
-
-    sayaçBaslat(timings);
-    durumYazisi.textContent = `${il} için bugünün ezan vakitleri`;
+    const timings = await vakitleriIlIleCek(il);
+    vakitleriUygula(il, timings, durumYazisi, { cevrimdisi: false, onbellekModu: "il" });
   } catch {
+    if (bugunlukOnbellektenDene(il, durumYazisi)) {
+      return;
+    }
     sayaçTemizle();
-    durumYazisi.textContent = "Vakitler alınamadı. İnternet bağlantını kontrol edip tekrar dene.";
+    document.getElementById("cevrimdisiBanner")?.classList.add("gizli");
+    durumYazisi.textContent = metinAl("durumVakitHata");
+  }
+}
+
+async function ezanVakitleriniKonumdanYukle() {
+  const durumYazisi = document.getElementById("durumYazisi");
+  const il = document.getElementById("ilSecimi")?.value || seciliIliYukle();
+  if (!uygulamaAyarlariOku().konumKullan) {
+    durumYazisi.textContent = metinAl("kibleKonumKapali");
+    return;
+  }
+  durumYazisi.textContent = metinAl("durumKonumAliniyor");
+  try {
+    const konum = await konumuAl();
+    const { latitude, longitude } = konum.coords;
+    const timings = await vakitleriKoordinatlaCek(latitude, longitude);
+    vakitleriUygula(il, timings, durumYazisi, {
+      cevrimdisi: false,
+      onbellekModu: "gps",
+      durumMetni: metinAl("durumKonumVakit")
+    });
+  } catch {
+    if (bugunlukOnbellektenDene(il, durumYazisi)) {
+      return;
+    }
+    sayaçTemizle();
+    document.getElementById("cevrimdisiBanner")?.classList.add("gizli");
+    durumYazisi.textContent = metinAl("durumVakitHata");
   }
 }
 
@@ -1132,7 +1479,12 @@ function menuleriBaslat() {
   const kibleMenu = document.getElementById("menuKible");
   const kazaMenu = document.getElementById("menuKaza");
   const ayarlarMenu = document.getElementById("menuAyarlar");
-  const aktifMenu = aktifMenuyuYukle();
+  const urlMenu = new URLSearchParams(window.location.search).get("menu");
+  let aktifMenu = aktifMenuyuYukle();
+  if (["ezan", "kuran", "kible", "kaza", "ayarlar"].includes(urlMenu)) {
+    aktifMenu = urlMenu;
+    aktifMenuyuKaydet(urlMenu);
+  }
 
   ezanMenu.classList.toggle("gizli", aktifMenu !== "ezan");
   kuranMenu.classList.toggle("gizli", aktifMenu !== "kuran");
@@ -1153,6 +1505,7 @@ function menuleriBaslat() {
       kibleMenu.classList.toggle("gizli", hedef !== "kible");
       kazaMenu.classList.toggle("gizli", hedef !== "kaza");
       ayarlarMenu.classList.toggle("gizli", hedef !== "ayarlar");
+
     });
   });
 }
@@ -1162,7 +1515,10 @@ function ayarlarMenusunuBaslat() {
   const konum = document.getElementById("ayarKonumAcik");
   const hadis = document.getElementById("ayarGununHadisi");
   const ezanSel = document.getElementById("ayarEzanHatirlatma");
-  if (!sessiz || !konum || !hadis || !ezanSel) {
+  const manevi = document.getElementById("ayarManeviOgut");
+  const cuma = document.getElementById("ayarCumaBildirim");
+  const titresim = document.getElementById("ayarTitresimAcik");
+  if (!sessiz || !konum || !hadis || !ezanSel || !manevi || !cuma || !titresim) {
     return;
   }
 
@@ -1171,6 +1527,9 @@ function ayarlarMenusunuBaslat() {
     sessiz.checked = a.otomatikSessiz;
     konum.checked = a.konumKullan;
     hadis.checked = a.gununHadisiBildirim;
+    manevi.checked = a.maneviOgutBildirim;
+    cuma.checked = a.cumaSabahiBildirim;
+    titresim.checked = a.titresimAcik;
     ezanHatirlatmaSecenekleriniDoldur();
   };
 
@@ -1190,6 +1549,15 @@ function ayarlarMenusunuBaslat() {
   hadis.addEventListener("change", () => {
     kaydet({ gununHadisiBildirim: hadis.checked });
   });
+  manevi.addEventListener("change", () => {
+    kaydet({ maneviOgutBildirim: manevi.checked });
+  });
+  cuma.addEventListener("change", () => {
+    kaydet({ cumaSabahiBildirim: cuma.checked });
+  });
+  titresim.addEventListener("change", () => {
+    kaydet({ titresimAcik: titresim.checked });
+  });
   ezanSel.addEventListener("change", () => {
     const dk = Number(ezanSel.value);
     kaydet({ ezanHatirlatmaDk: [0, 5, 10, 15, 20, 25, 30].includes(dk) ? dk : 0 });
@@ -1197,9 +1565,72 @@ function ayarlarMenusunuBaslat() {
   });
 }
 
+function hafifTitreme() {
+  if (!uygulamaAyarlariOku().titresimAcik || !navigator.vibrate) {
+    return;
+  }
+  navigator.vibrate(12);
+}
+
+function titresimiBaslat() {
+  document.body.addEventListener(
+    "click",
+    (event) => {
+      const t = event.target;
+      if (!(t instanceof Element)) {
+        return;
+      }
+      if (
+        t.closest(".sekme-buton, .yenile-buton, .sil-buton, .buton, label.anahtar, .ayarlar-buton")
+      ) {
+        hafifTitreme();
+      }
+    },
+    true
+  );
+}
+
+async function metinPaylas(baslik, metin) {
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: baslik, text: metin });
+      return;
+    } catch (e) {
+      if (e && e.name === "AbortError") {
+        return;
+      }
+    }
+  }
+  const url = `https://wa.me/?text=${encodeURIComponent(`${baslik}\n\n${metin}`)}`;
+  window.open(url, "_blank", "noopener,noreferrer");
+}
+
+function paylasVakitleri() {
+  if (!sonTimings) {
+    return;
+  }
+  const il = document.getElementById("ilSecimi")?.value || "";
+  const satirlar = EZAN_GOSTERIM_SIRASI.map(
+    (v) => `${v.etiket}: ${saatiTemizle(sonTimings[v.alan])}`
+  );
+  const baslik = metinAl("paylasVakitBaslik");
+  let govde = `${baslik}\n${il}`;
+  if (sonVakitlerKaynak === "gps") {
+    govde += `\n${metinAl("paylasKonumSatiri")}`;
+  }
+  govde += `\n\n${satirlar.join("\n")}`;
+  metinPaylas("Ezan Vakti", govde);
+}
+
+function paylasGununHadisi() {
+  const m = document.getElementById("hadisMetni")?.textContent?.trim() || simdikiHadisMetni();
+  metinPaylas(metinAl("hadisBaslik"), m);
+}
+
 function ilSeciminiBaslat() {
   const ilSecimi = document.getElementById("ilSecimi");
   const yenileBtn = document.getElementById("yenileBtn");
+  const konumBtn = document.getElementById("konumdanVakitBtn");
 
   ILLER.forEach((il) => {
     const option = document.createElement("option");
@@ -1221,6 +1652,17 @@ function ilSeciminiBaslat() {
   yenileBtn.addEventListener("click", () => {
     ezanVakitleriniYukle(ilSecimi.value);
   });
+
+  konumBtn?.addEventListener("click", () => {
+    ezanVakitleriniKonumdanYukle();
+  });
+
+  document.getElementById("paylasVakitlerBtn")?.addEventListener("click", () => {
+    paylasVakitleri();
+  });
+  document.getElementById("paylasHadisBtn")?.addEventListener("click", () => {
+    paylasGununHadisi();
+  });
 }
 
 function servisWorkerKaydet() {
@@ -1233,6 +1675,14 @@ function servisWorkerKaydet() {
   }
 }
 
+function pwaOzelEtkilesimleriBaslat() {
+  document.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
+  });
+}
+
+pwaOzelEtkilesimleriBaslat();
+titresimiBaslat();
 uygulamayiBaslat();
 ayarlariBaslat();
 ayarlarMenusunuBaslat();

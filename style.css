@@ -35,11 +35,14 @@
 html {
   overflow-x: hidden;
   scroll-behavior: smooth;
+  overscroll-behavior-y: contain;
+  overscroll-behavior-x: none;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
   font-family: "DM Sans", "Segoe UI", system-ui, sans-serif;
   background:
     radial-gradient(100% 70% at 50% -15%, rgba(var(--altin-rgb), 0.14) 0%, transparent 52%),
@@ -55,10 +58,25 @@ body {
   color: var(--yazi-ana);
   display: flex;
   justify-content: center;
-  padding: 16px 12px calc(96px + env(safe-area-inset-bottom));
+  padding: 16px 12px calc(120px + env(safe-area-inset-bottom));
   overflow-x: hidden;
   max-width: 100vw;
   -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: contain;
+  overscroll-behavior-x: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+input,
+select,
+textarea,
+[contenteditable="true"] {
+  -webkit-user-select: auto;
+  user-select: auto;
+  -webkit-touch-callout: default;
 }
 
 .uygulama {
@@ -110,8 +128,10 @@ body {
 
 .telif-footer {
   text-align: center;
-  margin-top: 20px;
-  padding: 0 12px 8px;
+  margin-top: 24px;
+  padding: 16px 12px 8px;
+  position: relative;
+  z-index: 1;
 }
 
 .telif-footer p {
@@ -123,20 +143,33 @@ body {
 }
 
 .telif-footer-alt {
-  margin-top: 8px !important;
+  margin-top: 12px !important;
 }
 
 .telif-footer-alt a {
-  color: rgba(var(--yesil-rgb), 0.75);
+  display: inline-block;
+  color: rgba(var(--yesil-rgb), 0.85);
   text-decoration: none;
-  font-size: 0.78rem;
+  font-size: 0.82rem;
+  font-weight: 600;
   letter-spacing: 0.04em;
-  transition: color 0.2s ease;
+  padding: 12px 18px;
+  min-height: 44px;
+  line-height: 1.3;
+  box-sizing: border-box;
+  border-radius: 10px;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
 }
 
 .telif-footer-alt a:hover {
   color: rgb(var(--yesil-rgb));
   text-decoration: underline;
+}
+
+.telif-footer-alt a:active {
+  background: rgba(var(--yesil-rgb), 0.12);
 }
 
 .gizlilik-sayfa {
@@ -401,6 +434,7 @@ body[dir="rtl"] .ayarlar-panel {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .secim-alani label {
@@ -807,6 +841,19 @@ body[dir="rtl"] .ayarlar-panel {
   background: var(--eksi-kirmizi);
 }
 
+/* Sabit alt menünün üstünde kalan içerik + telif alanı kaydırılabilir ve dokunulabilir olsun */
+@media (max-width: 699px) {
+  body {
+    padding: 16px 12px calc(172px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 400px) {
+  body {
+    padding: 16px 12px calc(232px + env(safe-area-inset-bottom));
+  }
+}
+
 @media (min-width: 700px) {
   body {
     padding: 20px 20px 24px;
@@ -979,8 +1026,14 @@ body[dir="rtl"] .ayarlar-panel {
     flex: 1;
   }
 
-  .hadis-ust .yenile-buton {
+  .hadis-ust .hadis-ust-butonlar {
     width: 100%;
+    justify-content: stretch;
+  }
+
+  .hadis-ust .hadis-ust-butonlar .yenile-buton {
+    flex: 1;
+    min-width: 0;
   }
 
   .kaza-aksiyonlar {
@@ -998,4 +1051,130 @@ body[dir="rtl"] .ayarlar-panel {
   .kart {
     padding: 16px;
   }
+}
+
+.hadis-ust-butonlar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.paylas-satir {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 10px;
+}
+
+.cevrimdisi-banner {
+  margin: 0 0 12px;
+  padding: 11px 14px;
+  border-radius: var(--radius-md);
+  background: rgba(var(--altin-rgb), 0.14);
+  border: 1px solid rgba(var(--altin-rgb), 0.38);
+  color: #f2e8d8;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.ayarlar-not {
+  margin-top: 0;
+  font-size: 0.88rem;
+  opacity: 0.92;
+}
+
+.ayar-kisayol-kutu {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(var(--yesil-rgb), 0.12);
+}
+
+.kalan-sure-kutu.sonraki-vurgulu {
+  border-color: rgba(var(--altin-rgb), 0.5);
+  background: linear-gradient(145deg, rgba(48, 42, 32, 0.55) 0%, rgba(28, 32, 48, 0.72) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 10px 36px rgba(0, 0, 0, 0.22),
+    0 0 0 1px rgba(var(--altin-rgb), 0.12);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.kalan-sure-kutu.sonraki-vurgulu .kalan-vakit {
+  font-size: 1.28rem;
+  font-weight: 700;
+  color: #fff9f0;
+}
+
+.kalan-sure-kutu.sonraki-vurgulu .kalan-sure {
+  font-size: clamp(1.75rem, 5.2vw, 2.55rem);
+  letter-spacing: 0.05em;
+}
+
+html[data-tema="gunduz"] {
+  --yazi-ana: #1a2436;
+  --yazi-ikincil: #4a5568;
+  --yazi-hadis: #2d3748;
+  --panel-grad-a: rgba(255, 255, 255, 0.72);
+  --panel-grad-b: rgba(248, 250, 252, 0.88);
+}
+
+html[data-tema="gunduz"] body {
+  color: var(--yazi-ana);
+  background:
+    radial-gradient(100% 65% at 50% -10%, rgba(var(--altin-rgb), 0.18) 0%, transparent 50%),
+    radial-gradient(80% 50% at 100% 90%, rgba(118, 201, 167, 0.12) 0%, transparent 45%),
+    linear-gradient(168deg, rgba(236, 242, 252, 0.97) 0%, rgba(248, 250, 252, 0.98) 50%, rgba(230, 238, 248, 0.96) 100%),
+    url("https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=1600&q=80")
+      center / cover no-repeat fixed;
+}
+
+html[data-tema="gunduz"] .panel-ust h2 {
+  color: #1a202c;
+}
+
+html[data-tema="gunduz"] .hadis-baslik {
+  color: #1a202c;
+}
+
+html[data-tema="gunduz"] .kalan-vakit {
+  color: #2d3748;
+}
+
+html[data-tema="gunduz"] .cevrimdisi-banner {
+  color: #5c4a2a;
+  background: rgba(var(--altin-rgb), 0.22);
+}
+
+html[data-tema="gunduz"] .kalan-sure-kutu {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.75) 0%, rgba(241, 245, 249, 0.9) 100%);
+  border-color: rgba(var(--yesil-rgb), 0.28);
+}
+
+html[data-tema="gunduz"] .kalan-sure-kutu.sonraki-vurgulu {
+  background: linear-gradient(145deg, rgba(255, 252, 245, 0.92) 0%, rgba(255, 248, 235, 0.95) 100%);
+  border-color: rgba(var(--altin-rgb), 0.45);
+}
+
+html[data-tema="gunduz"] .kalan-sure-kutu.sonraki-vurgulu .kalan-vakit {
+  color: #1a202c;
+}
+
+html[data-tema="gunduz"] .ezan-kart {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.82) 0%, rgba(241, 245, 249, 0.92) 100%);
+  border-color: rgba(var(--yesil-rgb), 0.22);
+}
+
+html[data-tema="gunduz"] .hadis-kutu {
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.78) 0%, rgba(248, 250, 252, 0.9) 100%);
+}
+
+html[data-tema="gunduz"] .secim-alani select {
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--yazi-ana);
+  border-color: rgba(var(--yesil-rgb), 0.3);
+}
+
+html[data-tema="gece"] .panel-ust h2 {
+  color: #faf8f4;
 }

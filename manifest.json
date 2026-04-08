@@ -6,7 +6,6 @@
   "dir": "ltr",
   "start_url": "./index.html",
   "scope": "./",
-  "display_override": ["window-controls-overlay", "minimal-ui", "standalone"],
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0c1f1a",
@@ -30,6 +29,36 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Kıble bulucu",
+      "short_name": "Kıble",
+      "description": "Pusula ve kıble yönü",
+      "url": "./index.html?menu=kible",
+      "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Namaz vakitleri",
+      "short_name": "Vakitler",
+      "description": "Günlük ezan vakitleri",
+      "url": "./index.html?menu=ezan",
+      "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Kur'an",
+      "short_name": "Kur'an",
+      "description": "Sure okuma",
+      "url": "./index.html?menu=kuran",
+      "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Ayarlar",
+      "short_name": "Ayarlar",
+      "description": "Bildirim ve uygulama ayarları",
+      "url": "./index.html?menu=ayarlar",
+      "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
     }
   ],
   "screenshots": [
