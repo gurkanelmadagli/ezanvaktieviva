@@ -34,35 +34,35 @@
   ],
   "screenshots": [
     {
-      "src": "./screenshoots/screen1.png",
+      "src": "./screenshots/screen1.png",
       "sizes": "512x512",
       "type": "image/png",
       "form_factor": "narrow",
       "label": "Uygulama Ana Ekranı"
     },
     {
-      "src": "./screenshoots/screen2.png",
+      "src": "./screenshots/screen2.png",
       "sizes": "512x512",
       "type": "image/png",
       "form_factor": "wide",
       "label": "Uygulama Ana Ekran2"
     },
     {
-      "src": "./screenshoots/screen3.png",
+      "src": "./screenshots/screen3.png",
       "sizes": "512x512",
       "type": "image/png",
       "form_factor": "narrow",
       "label": "Uygulama Ana Ekran3"
     },
     {
-      "src": "./screenshoots/screen4.png",
+      "src": "./screenshots/screen4.png",
       "sizes": "512x512",
       "type": "image/png",
       "form_factor": "wide",
       "label": "Uygulama Ana Ekran4"
     },
     {
-      "src": "./screenshoots/screen5.png",
+      "src": "./screenshots/screen5.png",
       "sizes": "512x512",
       "type": "image/png",
       "form_factor": "narrow",
