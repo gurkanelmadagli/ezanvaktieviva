@@ -3,7 +3,7 @@
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
-      "package_name": "com.ezanvaktieviva",
+      "package_name": "io.github.gurkanelmadagli.twa",
       "sha256_cert_fingerprints": [
         "32:96:31:65:69:A6:0E:97:A6:DE:AC:57:22:70:A4:E1:EC:8F:8B:63:0A:BD:F9:60:9E:AE:CD:C3:C3:D2:5C:90"
       ]
