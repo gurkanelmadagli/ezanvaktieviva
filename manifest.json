@@ -25,5 +25,42 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
+    "screenshots": [
+  {
+    "src": "screenshots/screen1.png",
+    "sizes": "512x512",
+    "type": "image/png",
+    "form_factor": "narrow",
+    "label": "Uygulama Ana Ekranı"
+  },
+  {
+    "src": "screenshots/screen2.png",
+    "sizes": "512x512",
+    "type": "image/png",
+    "form_factor": "wide",
+    "label": "Uygulama Ana Ekran2"
+  }
+        {
+    "src": "screenshots/screen3.png",
+    "sizes": "512x512",
+    "type": "image/png",
+    "form_factor": "narrow",
+    "label": "Uygulama Ana Ekran3"
+  },
+  {
+    "src": "screenshots/screen4.png",
+    "sizes": "512x512",
+    "type": "image/png",
+    "form_factor": "wide",
+    "label": "Uygulama Ana Ekran4"
+  }
+        {
+    "src": "screenshots/screen5.png",
+    "sizes": "512x512",
+    "type": "image/png",
+    "form_factor": "narrow",
+    "label": "Uygulama Ana Ekran5"
+  },
+]
   ]
 }
