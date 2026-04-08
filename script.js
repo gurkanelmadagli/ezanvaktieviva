@@ -109,6 +109,14 @@ const DIL_METINLERI = {
     ayarEzanKapali: "Kapalı",
     ayarEzanDkOnce: "{n} dakika önce",
     kibleKonumKapali: "Konum ayarlarda kapalı. Açmak için Ayarlar sekmesinden Konum’u etkinleştir.",
+    kibleKonumAliniyor: "Konum alınıyor…",
+    konumIzniRed:
+      "Konum izni verilmedi veya tarayıcıda engelli. Adres çubuğundaki kilit / site ayarlarından konuma izin verin.",
+    konumKaynakYok: "Konum kaynağı kullanılamıyor. GPS’i açıp açık alanda tekrar deneyin.",
+    konumZamanAsimi: "Konum zaman aşımına uğradı. Bir süre sonra tekrar deneyin.",
+    konumHttpsGerekli: "Konum yalnızca güvenli bağlantıda (https) çalışır.",
+    konumDestekYok: "Bu cihaz veya tarayıcı konumu desteklemiyor.",
+    konumGenelHata: "Konum alınamadı. İzinleri ve bağlantınızı kontrol edin.",
     hadisBildirimBaslik: "Günün Hadisi",
     ezanHatirlatmaBaslik: "Namaz vakti yaklaşıyor",
     konumdanVakitBtn: "Konumdan al",
@@ -187,6 +195,14 @@ const DIL_METINLERI = {
     ayarEzanKapali: "Off",
     ayarEzanDkOnce: "{n} min before",
     kibleKonumKapali: "Location is off in Settings. Turn on Location in the Settings tab.",
+    kibleKonumAliniyor: "Getting location…",
+    konumIzniRed:
+      "Location permission was denied or blocked. Allow location in the site settings (lock icon in the address bar).",
+    konumKaynakYok: "Location is unavailable. Turn on GPS and try again in an open area.",
+    konumZamanAsimi: "Location request timed out. Try again in a moment.",
+    konumHttpsGerekli: "Location requires a secure connection (https).",
+    konumDestekYok: "This browser or device does not support geolocation.",
+    konumGenelHata: "Could not get location. Check permissions and connection.",
     hadisBildirimBaslik: "Daily Hadith",
     ezanHatirlatmaBaslik: "Prayer time approaching",
     konumdanVakitBtn: "Use location",
@@ -264,6 +280,14 @@ const DIL_METINLERI = {
     ayarEzanKapali: "Mati",
     ayarEzanDkOnce: "{n} menit sebelum",
     kibleKonumKapali: "Lokasi dimatikan di Pengaturan. Aktifkan Lokasi di tab Pengaturan.",
+    kibleKonumAliniyor: "Mengambil lokasi…",
+    konumIzniRed:
+      "Izin lokasi ditolak atau diblokir. Izinkan lokasi di pengaturan situs (ikon gembok di bilah alamat).",
+    konumKaynakYok: "Lokasi tidak tersedia. Nyalakan GPS dan coba lagi di area terbuka.",
+    konumZamanAsimi: "Permintaan lokasi habis waktu. Coba lagi sebentar lagi.",
+    konumHttpsGerekli: "Lokasi memerlukan koneksi aman (https).",
+    konumDestekYok: "Peramban atau perangkat ini tidak mendukung geolokasi.",
+    konumGenelHata: "Lokasi tidak bisa diambil. Periksa izin dan koneksi.",
     hadisBildirimBaslik: "Hadits Hari Ini",
     ezanHatirlatmaBaslik: "Waktu salat mendekat",
     konumdanVakitBtn: "Dari lokasi",
@@ -341,6 +365,14 @@ const DIL_METINLERI = {
     ayarEzanKapali: "إيقاف",
     ayarEzanDkOnce: "قبل {n} دقيقة",
     kibleKonumKapali: "الموقع معطّل في الإعدادات. فعّل الموقع من تبويب الإعدادات.",
+    kibleKonumAliniyor: "جاري جلب الموقع…",
+    konumIzniRed:
+      "لم يُمنح إذن الموقع أو حُظر. اسمح بالموقع من إعدادات الموقع (أيقونة القفل في شريط العنوان).",
+    konumKaynakYok: "الموقع غير متاح. شغّل GPS وحاول مجدداً في مكان مفتوح.",
+    konumZamanAsimi: "انتهت مهلة طلب الموقع. أعد المحاولة بعد قليل.",
+    konumHttpsGerekli: "الموقع يعمل فقط على اتصال آمن (https).",
+    konumDestekYok: "المتصفح أو الجهاز لا يدعم تحديد الموقع.",
+    konumGenelHata: "تعذر الحصول على الموقع. تحقق من الأذونات والاتصال.",
     hadisBildirimBaslik: "حديث اليوم",
     ezanHatirlatmaBaslik: "اقترب وقت الصلاة",
     konumdanVakitBtn: "بالموقع",
@@ -1125,6 +1157,16 @@ function yuklemeEkraniniKapat() {
   el.classList.add("yukleme-ekrani--kapali");
   window.setTimeout(() => {
     el.classList.add("gizli");
+    /* Mobil Chrome’da adres çubuğunun hızlıca küçülmesini tetiklemek için tek satırlık kaydırma */
+    try {
+      const y = window.scrollY || 0;
+      window.scrollTo(0, y + 1);
+      window.requestAnimationFrame(() => {
+        window.scrollTo(0, y);
+      });
+    } catch {
+      /* yok say */
+    }
   }, 480);
 }
 
@@ -1213,18 +1255,75 @@ async function pusulaIzniIsteVeBaslat() {
   window.addEventListener("deviceorientation", yonDegisimiDinleyici, true);
 }
 
+async function konumIzniPermissionsDurumu() {
+  if (!navigator.permissions?.query) {
+    return null;
+  }
+  try {
+    const sonuc = await navigator.permissions.query({ name: "geolocation" });
+    return sonuc.state;
+  } catch {
+    return null;
+  }
+}
+
+function konumHatasiKullaniciyaMetin(err) {
+  const k = err?.konumKodu;
+  if (k === "IZIN_RED" || err?.geoKod === 1) {
+    return metinAl("konumIzniRed");
+  }
+  if (k === "HTTPS") {
+    return metinAl("konumHttpsGerekli");
+  }
+  if (k === "DESTEK_YOK") {
+    return metinAl("konumDestekYok");
+  }
+  if (k === "KULLANILAMIYOR" || err?.geoKod === 2) {
+    return metinAl("konumKaynakYok");
+  }
+  if (k === "ZAMAN_ASIMI" || err?.geoKod === 3) {
+    return metinAl("konumZamanAsimi");
+  }
+  return metinAl("konumGenelHata");
+}
+
 function konumuAl() {
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {
-      reject(new Error("desteklenmiyor"));
+      const e = new Error("desteklenmiyor");
+      e.konumKodu = "DESTEK_YOK";
+      reject(e);
+      return;
+    }
+    if (typeof window.isSecureContext === "boolean" && !window.isSecureContext) {
+      const e = new Error("https");
+      e.konumKodu = "HTTPS";
+      reject(e);
       return;
     }
 
-    navigator.geolocation.getCurrentPosition(resolve, reject, {
-      enableHighAccuracy: true,
-      timeout: 12000,
-      maximumAge: 0
-    });
+    navigator.geolocation.getCurrentPosition(
+      resolve,
+      (geoErr) => {
+        const e = new Error(geoErr?.message || "konum");
+        e.geoKod = geoErr?.code;
+        if (geoErr?.code === 1) {
+          e.konumKodu = "IZIN_RED";
+        } else if (geoErr?.code === 2) {
+          e.konumKodu = "KULLANILAMIYOR";
+        } else if (geoErr?.code === 3) {
+          e.konumKodu = "ZAMAN_ASIMI";
+        } else {
+          e.konumKodu = "GENEL";
+        }
+        reject(e);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 15000,
+        maximumAge: 60000
+      }
+    );
   });
 }
 
@@ -1235,7 +1334,12 @@ async function kibleyiBul() {
     kibleDurum.textContent = metinAl("kibleKonumKapali");
     return;
   }
-  kibleDurum.textContent = "Konum alınıyor...";
+  const izinOnceden = await konumIzniPermissionsDurumu();
+  if (izinOnceden === "denied") {
+    kibleDurum.textContent = metinAl("konumIzniRed");
+    return;
+  }
+  kibleDurum.textContent = metinAl("kibleKonumAliniyor");
 
   try {
     const konum = await konumuAl();
@@ -1245,8 +1349,8 @@ async function kibleyiBul() {
     await pusulaIzniIsteVeBaslat();
     ibreyiGuncelle();
     durumMetniGuncelle();
-  } catch {
-    kibleDurum.textContent = "Konum alınamadı. Konum iznini açıp tekrar dene.";
+  } catch (err) {
+    kibleDurum.textContent = konumHatasiKullaniciyaMetin(err);
   }
 }
 
@@ -1530,6 +1634,11 @@ async function ezanVakitleriniKonumdanYukle() {
     durumYazisi.textContent = metinAl("kibleKonumKapali");
     return;
   }
+  const izinOnceden = await konumIzniPermissionsDurumu();
+  if (izinOnceden === "denied") {
+    durumYazisi.textContent = metinAl("konumIzniRed");
+    return;
+  }
   durumYazisi.textContent = metinAl("durumKonumAliniyor");
   try {
     const konum = await konumuAl();
@@ -1546,7 +1655,11 @@ async function ezanVakitleriniKonumdanYukle() {
       onbellekModu: "gps",
       durumMetni: metinAl("durumKonumVakit")
     });
-  } catch {
+  } catch (err) {
+    if (err?.konumKodu || typeof err?.geoKod === "number") {
+      durumYazisi.textContent = konumHatasiKullaniciyaMetin(err);
+      return;
+    }
     if (bugunlukOnbellektenDene(il, durumYazisi)) {
       return;
     }

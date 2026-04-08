@@ -8,8 +8,8 @@
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0c1f1a",
-  "theme_color": "#0c1f1a",
+  "background_color": "#0c101d",
+  "theme_color": "#0c101d",
   "description": "Türkiye illerine göre namaz vakitleri, kıble, Kur’an okuma, kaza namazı takibi ve hatırlatmalar. Eviva Software.",
   "categories": [
     "lifestyle",

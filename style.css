@@ -39,6 +39,9 @@ html {
   overscroll-behavior-y: auto;
   overscroll-behavior-x: none;
   -webkit-overflow-scrolling: touch;
+  /* Adres çubuğu / sistem çubuğu ile uyum (ilk boyama index.html ile aynı ton) */
+  color-scheme: dark light;
+  background-color: #0c101d;
 }
 
 body {
@@ -1172,6 +1175,7 @@ html[data-tema="gunduz"] {
   --yazi-hadis: #2d3748;
   --panel-grad-a: rgba(255, 255, 255, 0.72);
   --panel-grad-b: rgba(248, 250, 252, 0.88);
+  background-color: #e8ecf4;
 }
 
 html[data-tema="gunduz"] body {
