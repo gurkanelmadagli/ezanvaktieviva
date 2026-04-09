@@ -150,6 +150,18 @@ const DIL_METINLERI = {
     ayarKisayolBaslik: "Ana ekran kısayolu (Android)",
     ayarKisayolMetin:
       "Sekmeler ekranın üstündedir. Tarayıcı menüsünden “Ana ekrana ekle” deyin; ikona uzun basınca Kıble, Vakitler, Kur’an ve Ayarlar kısayolları çıkar.",
+    ayarGuncellemeBaslik: "Güncellemeler",
+    ayarGuncellemeAlt:
+      "Web / PWA: sunucudaki yeni sürümü arar. Android mağaza uygulaması için güncellemeleri mağazadan yükleyin.",
+    ayarGuncellemeBtn: "Güncellemeleri kontrol et",
+    ayarGuncellemeYenileBtn: "Yenileyerek uygula",
+    guncellemeKontrolEdiliyor: "Kontrol ediliyor…",
+    guncellemeGuncel: "Yeni sürüm bulunamadı; uygulama güncel görünüyor.",
+    guncellemeHazirYenile: "Yeni sürüm indirildi. Tamamlamak için yenileyin.",
+    guncellemeSwYok:
+      "Bu sürümde arka planda güncelleme denetimi yok (ör. yüklü Android uygulaması). Güncellemeler için uygulama mağazanızı kullanın.",
+    guncellemeSwKayitYok: "Henüz kayıtlı servis çalışanı yok. Sayfayı bir kez yenileyip tekrar deneyin.",
+    guncellemeHata: "Güncelleme kontrolü başarısız. Bağlantınızı kontrol edip tekrar deneyin.",
     bildirimDurumuAcik: "Bildirimler açık. Ayarlardan öğüt, Cuma ve hatırlatmaları yönetebilirsin.",
     bildirimDurumuIlk: "Bildirim izni verildi. Ayarlardan türleri seçebilirsin.",
     hayirliCumalarBaslik: "Hayırlı Cumalar",
@@ -242,6 +254,18 @@ const DIL_METINLERI = {
     ayarKisayolBaslik: "Home screen shortcut (Android)",
     ayarKisayolMetin:
       "Tabs are at the top. Use “Add to Home screen” in the browser menu. Long-press the icon for Qibla, Times, Quran, and Settings shortcuts.",
+    ayarGuncellemeBaslik: "Updates",
+    ayarGuncellemeAlt:
+      "Web / PWA: checks the server for a new version. For the Play Store app, install updates from the store.",
+    ayarGuncellemeBtn: "Check for updates",
+    ayarGuncellemeYenileBtn: "Reload to apply",
+    guncellemeKontrolEdiliyor: "Checking…",
+    guncellemeGuncel: "No update found; you appear to be on the latest version.",
+    guncellemeHazirYenile: "A new version was downloaded. Reload to finish.",
+    guncellemeSwYok:
+      "Background update checks are not available in this build (e.g. installed Android app). Use your app store for updates.",
+    guncellemeSwKayitYok: "No service worker yet. Refresh the page once, then try again.",
+    guncellemeHata: "Update check failed. Check your connection and try again.",
     bildirimDurumuAcik: "Notifications on. Manage reminders in Settings.",
     bildirimDurumuIlk: "Permission granted. Choose notification types in Settings.",
     hayirliCumalarBaslik: "Jumu’ah Mubarak",
@@ -334,6 +358,18 @@ const DIL_METINLERI = {
     ayarKisayolBaslik: "Pintasan layar beranda (Android)",
     ayarKisayolMetin:
       "Tab ada di atas. Gunakan “Tambahkan ke Layar beranda” di menu browser. Tekan lama ikon untuk pintasan Kiblat, Waktu, Quran, dan Pengaturan.",
+    ayarGuncellemeBaslik: "Pembaruan",
+    ayarGuncellemeAlt:
+      "Web / PWA: memeriksa versi baru di server. Untuk aplikasi toko, perbarui lewat toko aplikasi.",
+    ayarGuncellemeBtn: "Periksa pembaruan",
+    ayarGuncellemeYenileBtn: "Muat ulang untuk menerapkan",
+    guncellemeKontrolEdiliyor: "Memeriksa…",
+    guncellemeGuncel: "Tidak ada pembaruan; Anda sudah memakai versi terbaru.",
+    guncellemeHazirYenile: "Versi baru diunduh. Muat ulang untuk menyelesaikan.",
+    guncellemeSwYok:
+      "Pemeriksaan pembaruan latar tidak tersedia di build ini (mis. aplikasi Android terpasang). Gunakan toko aplikasi.",
+    guncellemeSwKayitYok: "Service worker belum terdaftar. Segarkan halaman lalu coba lagi.",
+    guncellemeHata: "Pemeriksaan gagal. Periksa koneksi dan coba lagi.",
     bildirimDurumuAcik: "Notifikasi aktif. Atur di Pengaturan.",
     bildirimDurumuIlk: "Izin diberikan. Pilih jenis notifikasi di Pengaturan.",
     hayirliCumalarBaslik: "Jumu’ah Mubarak",
@@ -426,6 +462,18 @@ const DIL_METINLERI = {
     ayarKisayolBaslik: "اختصار الشاشة الرئيسية (أندرويد)",
     ayarKisayolMetin:
       "التبويبات في أعلى الشاشة. استخدم «إضافة إلى الشاشة الرئيسية» من قائمة المتصفح. اضغط مطولاً على الأيقونة لاختصارات القبلة والمواقيت والقرآن والإعدادات.",
+    ayarGuncellemeBaslik: "التحديثات",
+    ayarGuncellemeAlt:
+      "الويب / PWA: يتحقق من إصدار جديد على الخادم. لتطبيق المتجر، حدّث من المتجر.",
+    ayarGuncellemeBtn: "التحقق من التحديثات",
+    ayarGuncellemeYenileBtn: "تحديث الصفحة للتطبيق",
+    guncellemeKontrolEdiliyor: "جاري التحقق…",
+    guncellemeGuncel: "لا يوجد تحديث؛ يبدو أنك تستخدم أحدث إصدار.",
+    guncellemeHazirYenile: "تم تنزيل إصدار جديد. حدّث الصفحة لإكمال التحديث.",
+    guncellemeSwYok:
+      "لا يتوفر فحص تحديث في الخلفية في هذا الإصدار (مثل تطبيق أندرويد المثبت). استخدم متجر التطبيقات.",
+    guncellemeSwKayitYok: "لا يوجد service worker بعد. حدّث الصفحة ثم أعد المحاولة.",
+    guncellemeHata: "فشل التحقق من التحديث. تحقق من الاتصال وحاول مرة أخرى.",
     bildirimDurumuAcik: "الإشعارات مفعّلة. أدر الأنواع من الإعدادات.",
     bildirimDurumuIlk: "تم منح الإذن. اختر أنواع الإشعارات من الإعدادات.",
     hayirliCumalarBaslik: "جمعة مباركة",
@@ -696,6 +744,10 @@ function diliUygula() {
     "ayarEzanOnceAlt",
     "ayarKisayolBaslik",
     "ayarKisayolMetin",
+    "ayarGuncellemeBaslik",
+    "ayarGuncellemeAlt",
+    "ayarGuncellemeBtn",
+    "ayarGuncellemeYenileBtn",
     "ezanBaslik",
     "ilEtiket",
     "konumdanVakitBtn",
@@ -736,6 +788,8 @@ function diliUygula() {
   dilSecimiButonunuGuncelle();
   ezanHatirlatmaSecenekleriniDoldur();
   temaSecenekleriniDoldur();
+  document.getElementById("ayarGuncellemeDurum")?.replaceChildren();
+  document.getElementById("ayarGuncellemeYenileBtn")?.classList.add("gizli");
 }
 
 function ayarlariBaslat() {
@@ -2009,6 +2063,99 @@ function ilSeciminiBaslat() {
   });
 }
 
+async function guncellemeleriKontrolEt() {
+  const durum = document.getElementById("ayarGuncellemeDurum");
+  const yenileBtn = document.getElementById("ayarGuncellemeYenileBtn");
+  const kontrolBtn = document.getElementById("ayarGuncellemeBtn");
+
+  const yaz = (anahtar) => {
+    if (durum) {
+      durum.textContent = metinAl(anahtar);
+    }
+  };
+
+  const yenileGizle = () => yenileBtn?.classList.add("gizli");
+  const yenileGoster = () => yenileBtn?.classList.remove("gizli");
+
+  yenileGizle();
+
+  if (!kontrolBtn) {
+    return;
+  }
+
+  if (!("serviceWorker" in navigator)) {
+    yaz("guncellemeSwYok");
+    return;
+  }
+
+  kontrolBtn.disabled = true;
+  yaz("guncellemeKontrolEdiliyor");
+
+  try {
+    const reg = await navigator.serviceWorker.getRegistration();
+    if (!reg) {
+      yaz("guncellemeSwKayitYok");
+      return;
+    }
+
+    if (reg.waiting) {
+      yaz("guncellemeHazirYenile");
+      yenileGoster();
+      return;
+    }
+
+    let yeniSurum = false;
+
+    const updatefoundIsleyici = () => {
+      const iw = reg.installing;
+      if (!iw) {
+        return;
+      }
+      iw.addEventListener("statechange", () => {
+        if (iw.state === "installed" && navigator.serviceWorker.controller) {
+          yeniSurum = true;
+          yaz("guncellemeHazirYenile");
+          yenileGoster();
+        }
+      });
+    };
+
+    reg.addEventListener("updatefound", updatefoundIsleyici);
+    await reg.update();
+
+    for (let i = 0; i < 15; i += 1) {
+      await new Promise((r) => setTimeout(r, 200));
+      if (reg.waiting || yeniSurum) {
+        break;
+      }
+    }
+
+    reg.removeEventListener("updatefound", updatefoundIsleyici);
+
+    if (reg.waiting) {
+      yaz("guncellemeHazirYenile");
+      yenileGoster();
+    } else if (!yeniSurum) {
+      yaz("guncellemeGuncel");
+    }
+  } catch {
+    yaz("guncellemeHata");
+  } finally {
+    kontrolBtn.disabled = false;
+  }
+}
+
+function guncellemeKontrolunuBaslat() {
+  const kontrolBtn = document.getElementById("ayarGuncellemeBtn");
+  const yenileBtn = document.getElementById("ayarGuncellemeYenileBtn");
+  kontrolBtn?.addEventListener("click", () => {
+    guncellemeleriKontrolEt();
+  });
+  yenileBtn?.addEventListener("click", () => {
+    window.location.reload();
+  });
+}
+
 function servisWorkerKaydet() {
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
@@ -2030,6 +2177,7 @@ titresimiBaslat();
 uygulamayiBaslat();
 ayarlariBaslat();
 ayarlarMenusunuBaslat();
+guncellemeKontrolunuBaslat();
 menuleriBaslat();
 ilSeciminiBaslat();
 hadisKutusuBaslat();

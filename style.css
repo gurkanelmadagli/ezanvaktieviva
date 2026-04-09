@@ -1148,6 +1148,20 @@ body[dir="rtl"] .ayarlar-panel {
   border-top: 1px solid rgba(var(--yesil-rgb), 0.12);
 }
 
+.ayar-guncelleme-aksiyon {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+  align-items: center;
+}
+
+.ayar-guncelleme-durum {
+  margin-top: 10px;
+  margin-bottom: 0;
+  min-height: 1.35em;
+}
+
 .kalan-sure-kutu.sonraki-vurgulu {
   border-color: rgba(var(--altin-rgb), 0.5);
   background: linear-gradient(145deg, rgba(48, 42, 32, 0.55) 0%, rgba(28, 32, 48, 0.72) 100%);
@@ -1176,6 +1190,7 @@ html[data-tema="gunduz"] {
   --panel-grad-a: rgba(255, 255, 255, 0.72);
   --panel-grad-b: rgba(248, 250, 252, 0.88);
   background-color: #e8ecf4;
+  color-scheme: light;
 }
 
 html[data-tema="gunduz"] body {
@@ -1232,6 +1247,138 @@ html[data-tema="gunduz"] .secim-alani select {
   background: rgba(255, 255, 255, 0.95);
   color: var(--yazi-ana);
   border-color: rgba(var(--yesil-rgb), 0.3);
+}
+
+/* Üst başlık: açık zeminde koyu metin */
+html[data-tema="gunduz"] .ust-kisim h1 {
+  color: #152238;
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.55),
+    0 0 36px rgba(var(--yesil-rgb), 0.14);
+}
+
+/* Sekme şeridi koyu kaldığı için metin açık kalmalı */
+html[data-tema="gunduz"] .sekme-buton {
+  color: #eef1f8;
+}
+
+html[data-tema="gunduz"] .sekme-buton:hover {
+  color: #fff;
+}
+
+html[data-tema="gunduz"] .sekme-buton.aktif {
+  color: #fffef9;
+}
+
+html[data-tema="gunduz"] .ayarlar-buton {
+  color: #f2f5fc;
+}
+
+/* Dil paneli: açık temada koyu zemin + koyu metin birleşmesin */
+html[data-tema="gunduz"] .ayarlar-panel {
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.97) 0%, rgba(248, 250, 252, 0.99) 100%);
+  border-color: rgba(var(--yesil-rgb), 0.28);
+  box-shadow:
+    0 18px 48px rgba(15, 23, 42, 0.12),
+    0 0 0 1px rgba(var(--yesil-rgb), 0.14);
+}
+
+html[data-tema="gunduz"] .ayarlar-panel .ayar-baslik {
+  color: var(--yazi-ana);
+}
+
+html[data-tema="gunduz"] .ayarlar-panel label {
+  color: var(--yazi-ikincil);
+}
+
+html[data-tema="gunduz"] .ayarlar-panel select {
+  background: rgba(255, 255, 255, 0.98);
+  color: var(--yazi-ana);
+  border-color: rgba(var(--yesil-rgb), 0.32);
+}
+
+html[data-tema="gunduz"] .ayarlar-panel select option {
+  background: #fff;
+  color: #1a2436;
+}
+
+/* Açık kartlarda saat / sayı (sabit açık renk kaldırılır) */
+html[data-tema="gunduz"] .ezan-saat {
+  color: #1a202c;
+}
+
+html[data-tema="gunduz"] .kalan-sure {
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  color: #0f5132;
+  filter: none;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+html[data-tema="gunduz"] .telif-footer p {
+  color: rgba(55, 65, 81, 0.72);
+}
+
+/* Ayar satırları açık zemine çekilir; --yazi-ana ile uyum */
+html[data-tema="gunduz"] .ayar-satir,
+html[data-tema="gunduz"] .ayar-secim-blok {
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.88) 0%, rgba(248, 250, 252, 0.94) 100%);
+  border-color: rgba(var(--yesil-rgb), 0.22);
+}
+
+html[data-tema="gunduz"] .ayar-secim-select {
+  background: rgba(255, 255, 255, 0.98);
+  color: var(--yazi-ana);
+  border-color: rgba(var(--yesil-rgb), 0.3);
+}
+
+html[data-tema="gunduz"] .sil-buton {
+  color: #7f1d1d;
+  background: linear-gradient(165deg, rgba(254, 226, 226, 0.9) 0%, rgba(252, 210, 210, 0.75) 100%);
+}
+
+/* Kaza kartları */
+html[data-tema="gunduz"] .kart {
+  background: linear-gradient(168deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.96) 100%);
+  border-color: rgba(var(--yesil-rgb), 0.22);
+}
+
+html[data-tema="gunduz"] .sayi {
+  color: #1a202c;
+  text-shadow: none;
+}
+
+html[data-tema="gunduz"] .kart-baslik {
+  color: #1a202c;
+}
+
+/* Kıble / Kur’an kartları */
+html[data-tema="gunduz"] .kible-kutu {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.84) 0%, rgba(241, 245, 249, 0.93) 100%);
+  border-color: rgba(var(--yesil-rgb), 0.22);
+}
+
+html[data-tema="gunduz"] .kalibrasyon-kutu {
+  background: rgba(255, 255, 255, 0.78);
+  border-color: rgba(var(--altin-rgb), 0.32);
+}
+
+html[data-tema="gunduz"] .kalibrasyon-baslik {
+  color: #14532d;
+}
+
+html[data-tema="gunduz"] .ayet-kart {
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.86) 0%, rgba(248, 250, 252, 0.94) 100%);
+  border-color: rgba(var(--yesil-rgb), 0.2);
+}
+
+html[data-tema="gunduz"] .ayet-turkce {
+  color: #2d3748;
+}
+
+html[data-tema="gece"] {
+  color-scheme: dark;
 }
 
 html[data-tema="gece"] .panel-ust h2 {
