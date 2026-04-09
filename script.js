@@ -167,6 +167,8 @@ const DIL_METINLERI = {
     hayirliCumalarBaslik: "Hayırlı Cumalar",
     hayirliCumalarGovde: "Allah kabul etsin. Hayırlı ve bereketli bir Cuma dileriz.",
     bildirimDurumuDestekYok: "Bu cihaz bildirimleri desteklemiyor.",
+    bildirimDurumuNativeKurulum:
+      "Android bildirim eklentisi bu APK'da bulunmadi. Gelistirici olarak `npm install` + `npm run cap:sync` yapip uygulamayi yeniden derleyin.",
     bildirimDurumuKapali: "Bildirimler kapalı. Ezan sekmesinde Bildirimleri Aç’a dokun.",
     bildirimDurumuHata: "Bildirim gönderilemedi. Lütfen tekrar dene.",
     bildirimDurumuIzinsiz: "Bildirim izni verilmedi.",
@@ -273,6 +275,8 @@ const DIL_METINLERI = {
     hayirliCumalarBaslik: "Jumu’ah Mubarak",
     hayirliCumalarGovde: "May Allah accept from you. Have a blessed Friday.",
     bildirimDurumuDestekYok: "This device does not support notifications.",
+    bildirimDurumuNativeKurulum:
+      "Android notification plugin is missing in this APK. As developer, run `npm install` + `npm run cap:sync` and rebuild the app.",
     bildirimDurumuKapali: "Notifications are off. Tap Enable Notifications on the Prayer tab.",
     bildirimDurumuHata: "Could not send notification. Please try again.",
     bildirimDurumuIzinsiz: "Notification permission was not granted.",
@@ -379,6 +383,8 @@ const DIL_METINLERI = {
     hayirliCumalarBaslik: "Jumu’ah Mubarak",
     hayirliCumalarGovde: "Semoga Allah menerima. Semoga Jumat Anda diberkahi.",
     bildirimDurumuDestekYok: "Perangkat ini tidak mendukung notifikasi.",
+    bildirimDurumuNativeKurulum:
+      "Plugin notifikasi Android tidak ada di APK ini. Sebagai pengembang, jalankan `npm install` + `npm run cap:sync` lalu build ulang aplikasi.",
     bildirimDurumuKapali: "Notifikasi mati. Ketuk Aktifkan Notifikasi di tab Salat.",
     bildirimDurumuHata: "Notifikasi gagal. Coba lagi.",
     bildirimDurumuIzinsiz: "Izin notifikasi tidak diberikan.",
@@ -485,6 +491,8 @@ const DIL_METINLERI = {
     hayirliCumalarBaslik: "جمعة مباركة",
     hayirliCumalarGovde: "تقبل الله منكم. جمعاً مباركاً.",
     bildirimDurumuDestekYok: "هذا الجهاز لا يدعم الإشعارات.",
+    bildirimDurumuNativeKurulum:
+      "مكوّن إشعارات أندرويد غير موجود في هذا الـAPK. كمطوّر شغّل `npm install` ثم `npm run cap:sync` وأعد بناء التطبيق.",
     bildirimDurumuKapali: "الإشعارات مغلقة. اضغط «تفعيل الإشعارات» في تبويب الصلاة.",
     bildirimDurumuHata: "تعذر إرسال الإشعار. حاول مرة أخرى.",
     bildirimDurumuIzinsiz: "لم يُمنح إذن الإشعارات.",
@@ -655,6 +663,9 @@ async function bildirimYetkiDurumuAl() {
   if ("Notification" in window) {
     return Notification.permission;
   }
+  if (capacitorAndroidMi()) {
+    return "native-missing";
+  }
   return "unsupported";
 }
 
@@ -682,8 +693,6 @@ async function bildirimGonderIcerik(baslik, govde, ekstra = {}) {
   const sessiz = bildirimSessizOlsunMu();
   const temel = {
     body: govde,
-    icon: "./icons/icon-192.png",
-        badge: "./icons/icon-192.png",
     silent: sessiz,
     ...ekstra
   };
@@ -1089,6 +1098,10 @@ async function ezanHatirlatmaKontrol() {
 
 async function bildirimDongusunuCalistir() {
   const yetki = await bildirimYetkiDurumuAl();
+  if (yetki === "native-missing") {
+    bildirimDurumuYaz(metinAl("bildirimDurumuNativeKurulum"));
+    return;
+  }
   if (yetki === "unsupported") {
     bildirimDurumuYaz(metinAl("bildirimDurumuDestekYok"));
     return;
@@ -1136,6 +1149,10 @@ function bildirimleriBaslat() {
 
   izinBtn.addEventListener("click", async () => {
     const mevcut = await bildirimYetkiDurumuAl();
+    if (mevcut === "native-missing") {
+      bildirimDurumuYaz(metinAl("bildirimDurumuNativeKurulum"));
+      return;
+    }
     if (mevcut === "unsupported") {
       bildirimDurumuYaz(metinAl("bildirimDurumuDestekYok"));
       return;

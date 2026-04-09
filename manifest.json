@@ -19,15 +19,15 @@
   "related_applications": [],
   "icons": [
     {
-      "src": "./icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
+      "src": "./icons/app-logo.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     },
     {
-      "src": "./icons/icon-512.png",
+      "src": "./icons/app-logo.svg",
       "sizes": "512x512",
-      "type": "image/png",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     }
   ],
@@ -37,28 +37,28 @@
       "short_name": "Kıble",
       "description": "Pusula ve kıble yönü",
       "url": "./index.html?menu=kible",
-      "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+      "icons": [{ "src": "./icons/app-logo.svg", "sizes": "512x512", "type": "image/svg+xml" }]
     },
     {
       "name": "Namaz vakitleri",
       "short_name": "Vakitler",
       "description": "Günlük ezan vakitleri",
       "url": "./index.html?menu=ezan",
-      "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+      "icons": [{ "src": "./icons/app-logo.svg", "sizes": "512x512", "type": "image/svg+xml" }]
     },
     {
       "name": "Kur'an",
       "short_name": "Kur'an",
       "description": "Sure okuma",
       "url": "./index.html?menu=kuran",
-      "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+      "icons": [{ "src": "./icons/app-logo.svg", "sizes": "512x512", "type": "image/svg+xml" }]
     },
     {
       "name": "Ayarlar",
       "short_name": "Ayarlar",
       "description": "Bildirim ve uygulama ayarları",
       "url": "./index.html?menu=ayarlar",
-      "icons": [{ "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+      "icons": [{ "src": "./icons/app-logo.svg", "sizes": "512x512", "type": "image/svg+xml" }]
     }
   ],
   "screenshots": [
