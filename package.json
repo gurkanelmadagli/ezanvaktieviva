@@ -1,0 +1,19 @@
+{
+  "name": "ezan-vakti",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Ezan Vakti — Capacitor Android sarmalayıcı",
+  "scripts": {
+    "prepare:www": "node scripts/prepare-www.cjs",
+    "cap:sync": "npm run prepare:www && npx cap sync android",
+    "cap:open": "npx cap open android",
+    "postinstall": "npm run prepare:www"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.2.0",
+    "@capacitor/core": "^6.2.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.2.0"
+  }
+}
