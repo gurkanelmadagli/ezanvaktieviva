@@ -170,6 +170,8 @@ const DIL_METINLERI = {
     bildirimDurumuKapali: "Bildirimler kapalı. Ezan sekmesinde Bildirimleri Aç’a dokun.",
     bildirimDurumuHata: "Bildirim gönderilemedi. Lütfen tekrar dene.",
     bildirimDurumuIzinsiz: "Bildirim izni verilmedi.",
+    bildirimTestBaslik: "Bildirim testi",
+    bildirimTestGovde: "Bildirimler aktif. Test bildirimi basariyla gonderildi.",
     yuklemeEkran: "Yükleniyor…",
     uygulamaCikisOnay: "Uygulamadan çıkmak istiyor musunuz?"
   },
@@ -274,6 +276,8 @@ const DIL_METINLERI = {
     bildirimDurumuKapali: "Notifications are off. Tap Enable Notifications on the Prayer tab.",
     bildirimDurumuHata: "Could not send notification. Please try again.",
     bildirimDurumuIzinsiz: "Notification permission was not granted.",
+    bildirimTestBaslik: "Notification test",
+    bildirimTestGovde: "Notifications are active. Test notification sent successfully.",
     yuklemeEkran: "Loading…",
     uygulamaCikisOnay: "Do you want to exit the app?"
   },
@@ -378,6 +382,8 @@ const DIL_METINLERI = {
     bildirimDurumuKapali: "Notifikasi mati. Ketuk Aktifkan Notifikasi di tab Salat.",
     bildirimDurumuHata: "Notifikasi gagal. Coba lagi.",
     bildirimDurumuIzinsiz: "Izin notifikasi tidak diberikan.",
+    bildirimTestBaslik: "Tes notifikasi",
+    bildirimTestGovde: "Notifikasi aktif. Notifikasi uji berhasil dikirim.",
     yuklemeEkran: "Memuat…",
     uygulamaCikisOnay: "Keluar dari aplikasi?"
   },
@@ -482,6 +488,8 @@ const DIL_METINLERI = {
     bildirimDurumuKapali: "الإشعارات مغلقة. اضغط «تفعيل الإشعارات» في تبويب الصلاة.",
     bildirimDurumuHata: "تعذر إرسال الإشعار. حاول مرة أخرى.",
     bildirimDurumuIzinsiz: "لم يُمنح إذن الإشعارات.",
+    bildirimTestBaslik: "اختبار الإشعارات",
+    bildirimTestGovde: "الإشعارات مفعلة. تم إرسال إشعار الاختبار بنجاح.",
     yuklemeEkran: "جاري التحميل…",
     uygulamaCikisOnay: "هل تريد إغلاق التطبيق؟"
   }
@@ -490,6 +498,7 @@ let sayacIntervalId = null;
 let bildirimIntervalId = null;
 let sonTimings = null;
 let sonVakitlerKaynak = "il";
+let yerelBildirimIdSayaci = 1;
 let ilkVakitYuklemePromise = null;
 let menuGeriYigini = [];
 let androidGeriDinleyiciKayitli = false;
@@ -628,6 +637,47 @@ function bildirimSessizOlsunMu() {
   return Boolean(ayar.otomatikSessiz && namazVaktiIcindeMi());
 }
 
+function yerelBildirimEklentisiAl() {
+  const P = window.Capacitor?.Plugins;
+  return P?.LocalNotifications ?? P?.localNotifications ?? null;
+}
+
+async function bildirimYetkiDurumuAl() {
+  const LN = yerelBildirimEklentisiAl();
+  if (LN && typeof LN.checkPermissions === "function") {
+    try {
+      const p = await LN.checkPermissions();
+      return p?.display || "prompt";
+    } catch {
+      return "prompt";
+    }
+  }
+  if ("Notification" in window) {
+    return Notification.permission;
+  }
+  return "unsupported";
+}
+
+async function bildirimIzniIste() {
+  const LN = yerelBildirimEklentisiAl();
+  if (LN && typeof LN.requestPermissions === "function") {
+    try {
+      const p = await LN.requestPermissions();
+      return p?.display || "denied";
+    } catch {
+      return "denied";
+    }
+  }
+  if ("Notification" in window && typeof Notification.requestPermission === "function") {
+    try {
+      return await Notification.requestPermission();
+    } catch {
+      return "denied";
+    }
+  }
+  return "unsupported";
+}
+
 async function bildirimGonderIcerik(baslik, govde, ekstra = {}) {
   const sessiz = bildirimSessizOlsunMu();
   const temel = {
@@ -637,6 +687,27 @@ async function bildirimGonderIcerik(baslik, govde, ekstra = {}) {
     silent: sessiz,
     ...ekstra
   };
+  const LN = yerelBildirimEklentisiAl();
+  if (LN && typeof LN.schedule === "function") {
+    const id = yerelBildirimIdSayaci;
+    yerelBildirimIdSayaci += 1;
+    if (yerelBildirimIdSayaci > 2147483000) {
+      yerelBildirimIdSayaci = 1;
+    }
+    await LN.schedule({
+      notifications: [
+        {
+          id,
+          title: baslik,
+          body: govde,
+          schedule: { at: new Date(Date.now() + 250) },
+          extra: ekstra,
+          silent: sessiz
+        }
+      ]
+    });
+    return;
+  }
   if ("serviceWorker" in navigator) {
     const reg = await navigator.serviceWorker.getRegistration();
     if (reg) {
@@ -963,7 +1034,8 @@ async function gunlukHadisBildirimiKontrol() {
 
 async function cumaSabahiBildirimiKontrol() {
   const ayar = uygulamaAyarlariOku();
-  if (!ayar.cumaSabahiBildirim || Notification.permission !== "granted") {
+  const yetki = await bildirimYetkiDurumuAl();
+  if (!ayar.cumaSabahiBildirim || yetki !== "granted") {
     return;
   }
   const d = new Date();
@@ -1016,11 +1088,12 @@ async function ezanHatirlatmaKontrol() {
 }
 
 async function bildirimDongusunuCalistir() {
-  if (!("Notification" in window)) {
+  const yetki = await bildirimYetkiDurumuAl();
+  if (yetki === "unsupported") {
     bildirimDurumuYaz(metinAl("bildirimDurumuDestekYok"));
     return;
   }
-  if (Notification.permission !== "granted") {
+  if (yetki !== "granted") {
     bildirimDurumuYaz(metinAl("bildirimDurumuKapali"));
     return;
   }
@@ -1062,13 +1135,15 @@ function bildirimleriBaslat() {
   }
 
   izinBtn.addEventListener("click", async () => {
-    if (!("Notification" in window)) {
+    const mevcut = await bildirimYetkiDurumuAl();
+    if (mevcut === "unsupported") {
       bildirimDurumuYaz(metinAl("bildirimDurumuDestekYok"));
       return;
     }
-    const izin = await Notification.requestPermission();
+    const izin = mevcut === "granted" ? "granted" : await bildirimIzniIste();
     if (izin === "granted") {
       bildirimDurumuYaz(metinAl("bildirimDurumuIlk"));
+      await bildirimGonderIcerik(metinAl("bildirimTestBaslik"), metinAl("bildirimTestGovde")).catch(() => {});
       await bildirimDongusunuCalistir();
     } else {
       bildirimDurumuYaz(metinAl("bildirimDurumuIzinsiz"));
