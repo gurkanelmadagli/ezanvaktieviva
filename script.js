@@ -108,6 +108,12 @@ const DIL_METINLERI = {
     ayarEzanOnceAlt: "Seçilen süre kadar önce bir hatırlatma gönderilir.",
     ayarEzanKapali: "Kapalı",
     ayarEzanDkOnce: "{n} dakika önce",
+    ayarTemaEtiket: "Görünüm teması",
+    ayarTemaAlt:
+      "Otomatik: yatsı ile imsak arası koyu, diğer zamanlar açık. İsterseniz her zaman açık veya koyu seçebilirsiniz.",
+    ayarTemaOtomatik: "Otomatik (vakitlere göre)",
+    ayarTemaAcik: "Açık tema",
+    ayarTemaKoyu: "Koyu tema",
     kibleKonumKapali: "Konum ayarlarda kapalı. Açmak için Ayarlar sekmesinden Konum’u etkinleştir.",
     kibleKonumAliniyor: "Konum alınıyor…",
     konumIzniRed:
@@ -152,7 +158,8 @@ const DIL_METINLERI = {
     bildirimDurumuKapali: "Bildirimler kapalı. Ezan sekmesinde Bildirimleri Aç’a dokun.",
     bildirimDurumuHata: "Bildirim gönderilemedi. Lütfen tekrar dene.",
     bildirimDurumuIzinsiz: "Bildirim izni verilmedi.",
-    yuklemeEkran: "Yükleniyor…"
+    yuklemeEkran: "Yükleniyor…",
+    uygulamaCikisOnay: "Uygulamadan çıkmak istiyor musunuz?"
   },
   en: {
     appBaslik: "Prayer Times and Qada Tracker",
@@ -194,6 +201,12 @@ const DIL_METINLERI = {
     ayarEzanOnceAlt: "Sends one reminder this many minutes before each time.",
     ayarEzanKapali: "Off",
     ayarEzanDkOnce: "{n} min before",
+    ayarTemaEtiket: "Appearance",
+    ayarTemaAlt:
+      "Automatic follows prayer times (dark from Isha until Fajr). You can also lock light or dark.",
+    ayarTemaOtomatik: "Automatic (by prayer times)",
+    ayarTemaAcik: "Light theme",
+    ayarTemaKoyu: "Dark theme",
     kibleKonumKapali: "Location is off in Settings. Turn on Location in the Settings tab.",
     kibleKonumAliniyor: "Getting location…",
     konumIzniRed:
@@ -237,7 +250,8 @@ const DIL_METINLERI = {
     bildirimDurumuKapali: "Notifications are off. Tap Enable Notifications on the Prayer tab.",
     bildirimDurumuHata: "Could not send notification. Please try again.",
     bildirimDurumuIzinsiz: "Notification permission was not granted.",
-    yuklemeEkran: "Loading…"
+    yuklemeEkran: "Loading…",
+    uygulamaCikisOnay: "Do you want to exit the app?"
   },
   id: {
     appBaslik: "Waktu Salat dan Pelacak Qada",
@@ -279,6 +293,12 @@ const DIL_METINLERI = {
     ayarEzanOnceAlt: "Mengirim satu pengingat beberapa menit sebelum setiap waktu.",
     ayarEzanKapali: "Mati",
     ayarEzanDkOnce: "{n} menit sebelum",
+    ayarTemaEtiket: "Tema tampilan",
+    ayarTemaAlt:
+      "Otomatis mengikuti waktu salat (gelap dari Isya hingga Subuh). Anda juga bisa mengunci terang atau gelap.",
+    ayarTemaOtomatik: "Otomatis (menurut waktu salat)",
+    ayarTemaAcik: "Tema terang",
+    ayarTemaKoyu: "Tema gelap",
     kibleKonumKapali: "Lokasi dimatikan di Pengaturan. Aktifkan Lokasi di tab Pengaturan.",
     kibleKonumAliniyor: "Mengambil lokasi…",
     konumIzniRed:
@@ -322,7 +342,8 @@ const DIL_METINLERI = {
     bildirimDurumuKapali: "Notifikasi mati. Ketuk Aktifkan Notifikasi di tab Salat.",
     bildirimDurumuHata: "Notifikasi gagal. Coba lagi.",
     bildirimDurumuIzinsiz: "Izin notifikasi tidak diberikan.",
-    yuklemeEkran: "Memuat…"
+    yuklemeEkran: "Memuat…",
+    uygulamaCikisOnay: "Keluar dari aplikasi?"
   },
   ar: {
     appBaslik: "مواقيت الصلاة وتتبع القضاء",
@@ -364,6 +385,12 @@ const DIL_METINLERI = {
     ayarEzanOnceAlt: "إرسال تذكير قبل كل وقت بالدقائق المختارة.",
     ayarEzanKapali: "إيقاف",
     ayarEzanDkOnce: "قبل {n} دقيقة",
+    ayarTemaEtiket: "مظهر التطبيق",
+    ayarTemaAlt:
+      "تلقائي يتبع أوقات الصلاة (داكن من العشاء حتى الفجر). يمكنك أيضاً تثبيت الوضع الفاتح أو الداكن.",
+    ayarTemaOtomatik: "تلقائي (حسب أوقات الصلاة)",
+    ayarTemaAcik: "سمة فاتحة",
+    ayarTemaKoyu: "سمة داكنة",
     kibleKonumKapali: "الموقع معطّل في الإعدادات. فعّل الموقع من تبويب الإعدادات.",
     kibleKonumAliniyor: "جاري جلب الموقع…",
     konumIzniRed:
@@ -407,7 +434,8 @@ const DIL_METINLERI = {
     bildirimDurumuKapali: "الإشعارات مغلقة. اضغط «تفعيل الإشعارات» في تبويب الصلاة.",
     bildirimDurumuHata: "تعذر إرسال الإشعار. حاول مرة أخرى.",
     bildirimDurumuIzinsiz: "لم يُمنح إذن الإشعارات.",
-    yuklemeEkran: "جاري التحميل…"
+    yuklemeEkran: "جاري التحميل…",
+    uygulamaCikisOnay: "هل تريد إغلاق التطبيق؟"
   }
 };
 let sayacIntervalId = null;
@@ -415,6 +443,8 @@ let bildirimIntervalId = null;
 let sonTimings = null;
 let sonVakitlerKaynak = "il";
 let ilkVakitYuklemePromise = null;
+let menuGeriYigini = [];
+let androidGeriDinleyiciKayitli = false;
 let kibleAcisi = null;
 let cihazBasligi = null;
 let kazaVeri = varsayilanVeri();
@@ -479,7 +509,8 @@ function varsayilanUygulamaAyarlari() {
     ezanHatirlatmaDk: 0,
     maneviOgutBildirim: true,
     cumaSabahiBildirim: false,
-    titresimAcik: true
+    titresimAcik: true,
+    temaTercihi: "otomatik"
   };
 }
 
@@ -493,6 +524,8 @@ function uygulamaAyarlariOku() {
     const varsayilan = varsayilanUygulamaAyarlari();
     const dk = Number(kayit.ezanHatirlatmaDk);
     const dkGecerli = [0, 5, 10, 15, 20, 25, 30].includes(dk) ? dk : 0;
+    const temaHam = kayit.temaTercihi;
+    const temaGecerli = ["otomatik", "acik", "koyu"].includes(temaHam) ? temaHam : "otomatik";
     return {
       otomatikSessiz: Boolean(kayit.otomatikSessiz),
       konumKullan: kayit.konumKullan !== false,
@@ -500,7 +533,8 @@ function uygulamaAyarlariOku() {
       ezanHatirlatmaDk: dkGecerli,
       maneviOgutBildirim: kayit.maneviOgutBildirim !== false,
       cumaSabahiBildirim: Boolean(kayit.cumaSabahiBildirim),
-      titresimAcik: kayit.titresimAcik !== false
+      titresimAcik: kayit.titresimAcik !== false,
+      temaTercihi: temaGecerli
     };
   } catch {
     return varsayilanUygulamaAyarlari();
@@ -610,6 +644,28 @@ function ezanHatirlatmaSecenekleriniDoldur() {
   select.value = dkList.includes(Number(onceki)) ? onceki : "0";
 }
 
+function temaSecenekleriniDoldur() {
+  const select = document.getElementById("ayarTemaSecimi");
+  if (!select) {
+    return;
+  }
+  const ayar = uygulamaAyarlariOku();
+  const onceki = ayar.temaTercihi;
+  const secenekler = [
+    { val: "otomatik", key: "ayarTemaOtomatik" },
+    { val: "acik", key: "ayarTemaAcik" },
+    { val: "koyu", key: "ayarTemaKoyu" }
+  ];
+  select.innerHTML = "";
+  secenekler.forEach(({ val, key }) => {
+    const opt = document.createElement("option");
+    opt.value = val;
+    opt.textContent = metinAl(key);
+    select.appendChild(opt);
+  });
+  select.value = secenekler.some((s) => s.val === onceki) ? onceki : "otomatik";
+}
+
 function diliUygula() {
   const metinIdleri = [
     "appBaslik",
@@ -622,6 +678,8 @@ function diliUygula() {
     "ayarlarBaslik",
     "ayarlarAciklama",
     "ayarBildirimNotu",
+    "ayarTemaEtiket",
+    "ayarTemaAlt",
     "ayarSessizEtiket",
     "ayarSessizAlt",
     "ayarKonumEtiket",
@@ -677,6 +735,7 @@ function diliUygula() {
   document.body.dir = seciliDil === "ar" ? "rtl" : "ltr";
   dilSecimiButonunuGuncelle();
   ezanHatirlatmaSecenekleriniDoldur();
+  temaSecenekleriniDoldur();
 }
 
 function ayarlariBaslat() {
@@ -1038,8 +1097,19 @@ function geceModuMu(timings) {
   return simdiMs >= ishaMs || simdiMs < fajrMs;
 }
 
+function temaGeceMiHesapla(timings) {
+  const mod = uygulamaAyarlariOku().temaTercihi;
+  if (mod === "acik") {
+    return false;
+  }
+  if (mod === "koyu") {
+    return true;
+  }
+  return geceModuMu(timings);
+}
+
 function vakitTemasiniUygula(timings) {
-  const gece = geceModuMu(timings);
+  const gece = temaGeceMiHesapla(timings);
   document.documentElement.dataset.tema = gece ? "gece" : "gunduz";
   const renk = gece ? "#0c101d" : "#e8ecf4";
   document.querySelector('meta[name="theme-color"]')?.setAttribute("content", renk);
@@ -1669,42 +1739,110 @@ async function ezanVakitleriniKonumdanYukle() {
   }
 }
 
-function menuleriBaslat() {
-  const sekmeler = document.querySelectorAll(".sekme-buton");
+const MENU_SEKMELERI = ["ezan", "kuran", "kible", "kaza", "ayarlar"];
+
+function simdikiSekmeOku() {
+  const btn = document.querySelector(".sekme-buton.aktif");
+  const m = btn?.dataset?.menu;
+  return MENU_SEKMELERI.includes(m) ? m : aktifMenuyuYukle();
+}
+
+function sekmeyeGecUygula(hedef) {
+  if (!MENU_SEKMELERI.includes(hedef)) {
+    return;
+  }
   const ezanMenu = document.getElementById("menuEzan");
   const kuranMenu = document.getElementById("menuKuran");
   const kibleMenu = document.getElementById("menuKible");
   const kazaMenu = document.getElementById("menuKaza");
   const ayarlarMenu = document.getElementById("menuAyarlar");
+  const sekmeler = document.querySelectorAll(".sekme-buton");
+  if (!ezanMenu || !kuranMenu || !kibleMenu || !kazaMenu || !ayarlarMenu) {
+    return;
+  }
+  ezanMenu.classList.toggle("gizli", hedef !== "ezan");
+  kuranMenu.classList.toggle("gizli", hedef !== "kuran");
+  kibleMenu.classList.toggle("gizli", hedef !== "kible");
+  kazaMenu.classList.toggle("gizli", hedef !== "kaza");
+  ayarlarMenu.classList.toggle("gizli", hedef !== "ayarlar");
+  sekmeler.forEach((s) => s.classList.toggle("aktif", s.dataset.menu === hedef));
+  aktifMenuyuKaydet(hedef);
+  try {
+    const u = new URL(window.location.href);
+    u.searchParams.set("menu", hedef);
+    const qs = u.searchParams.toString();
+    const yeniUrl = `${u.pathname}${qs ? `?${qs}` : ""}${u.hash}`;
+    history.replaceState({ menu: hedef }, "", yeniUrl);
+  } catch {
+    /* yok say */
+  }
+}
+
+function uygulamadanCik() {
+  const App = window.Capacitor?.Plugins?.App;
+  if (App?.exitApp) {
+    void App.exitApp();
+  }
+}
+
+function menuGeriIsle() {
+  const panel = document.getElementById("ayarlarPanel");
+  if (panel && !panel.classList.contains("gizli")) {
+    panel.classList.add("gizli");
+    return;
+  }
+  if (menuGeriYigini.length > 0) {
+    const onceki = menuGeriYigini.pop();
+    sekmeyeGecUygula(onceki);
+    return;
+  }
+  if (window.confirm(metinAl("uygulamaCikisOnay"))) {
+    uygulamadanCik();
+  }
+}
+
+function androidGeriVeCikisBaslat() {
+  const C = window.Capacitor;
+  if (!C || typeof C.isNativePlatform !== "function" || !C.isNativePlatform()) {
+    return;
+  }
+  const App = C.Plugins?.App;
+  if (!App || typeof App.addListener !== "function") {
+    return;
+  }
+  if (androidGeriDinleyiciKayitli) {
+    return;
+  }
+  androidGeriDinleyiciKayitli = true;
+  App.addListener("backButton", () => {
+    menuGeriIsle();
+  }).catch(() => {});
+}
+
+function menuleriBaslat() {
+  const sekmeler = document.querySelectorAll(".sekme-buton");
   const urlMenu = new URLSearchParams(window.location.search).get("menu");
   let aktifMenu = aktifMenuyuYukle();
-  if (["ezan", "kuran", "kible", "kaza", "ayarlar"].includes(urlMenu)) {
+  if (MENU_SEKMELERI.includes(urlMenu)) {
     aktifMenu = urlMenu;
     aktifMenuyuKaydet(urlMenu);
   }
 
-  ezanMenu.classList.toggle("gizli", aktifMenu !== "ezan");
-  kuranMenu.classList.toggle("gizli", aktifMenu !== "kuran");
-  kibleMenu.classList.toggle("gizli", aktifMenu !== "kible");
-  kazaMenu.classList.toggle("gizli", aktifMenu !== "kaza");
-  ayarlarMenu.classList.toggle("gizli", aktifMenu !== "ayarlar");
-  sekmeler.forEach((s) => s.classList.toggle("aktif", s.dataset.menu === aktifMenu));
+  menuGeriYigini = [];
+  sekmeyeGecUygula(aktifMenu);
 
   sekmeler.forEach((sekme) => {
     sekme.addEventListener("click", () => {
       const hedef = sekme.dataset.menu;
-      aktifMenuyuKaydet(hedef);
-      sekmeler.forEach((s) => s.classList.remove("aktif"));
-      sekme.classList.add("aktif");
-
-      ezanMenu.classList.toggle("gizli", hedef !== "ezan");
-      kuranMenu.classList.toggle("gizli", hedef !== "kuran");
-      kibleMenu.classList.toggle("gizli", hedef !== "kible");
-      kazaMenu.classList.toggle("gizli", hedef !== "kaza");
-      ayarlarMenu.classList.toggle("gizli", hedef !== "ayarlar");
-
+      const simdi = simdikiSekmeOku();
+      if (simdi !== hedef) {
+        menuGeriYigini.push(simdi);
+      }
+      sekmeyeGecUygula(hedef);
     });
   });
+
+  androidGeriVeCikisBaslat();
 }
 
 function ayarlarMenusunuBaslat() {
@@ -1712,10 +1850,11 @@ function ayarlarMenusunuBaslat() {
   const konum = document.getElementById("ayarKonumAcik");
   const hadis = document.getElementById("ayarGununHadisi");
   const ezanSel = document.getElementById("ayarEzanHatirlatma");
+  const temaSel = document.getElementById("ayarTemaSecimi");
   const manevi = document.getElementById("ayarManeviOgut");
   const cuma = document.getElementById("ayarCumaBildirim");
   const titresim = document.getElementById("ayarTitresimAcik");
-  if (!sessiz || !konum || !hadis || !ezanSel || !manevi || !cuma || !titresim) {
+  if (!sessiz || !konum || !hadis || !ezanSel || !temaSel || !manevi || !cuma || !titresim) {
     return;
   }
 
@@ -1728,6 +1867,7 @@ function ayarlarMenusunuBaslat() {
     cuma.checked = a.cumaSabahiBildirim;
     titresim.checked = a.titresimAcik;
     ezanHatirlatmaSecenekleriniDoldur();
+    temaSecenekleriniDoldur();
   };
 
   uiAyarUygula();
@@ -1759,6 +1899,13 @@ function ayarlarMenusunuBaslat() {
     const dk = Number(ezanSel.value);
     kaydet({ ezanHatirlatmaDk: [0, 5, 10, 15, 20, 25, 30].includes(dk) ? dk : 0 });
     ezanHatirlatmaSecenekleriniDoldur();
+  });
+  temaSel.addEventListener("change", () => {
+    const v = temaSel.value;
+    const temaTercihi = ["otomatik", "acik", "koyu"].includes(v) ? v : "otomatik";
+    kaydet({ temaTercihi });
+    temaSecenekleriniDoldur();
+    vakitTemasiniUygula(sonTimings);
   });
 }
 
