@@ -1,7 +1,7 @@
 {
   "appId": "software.eviva.ezanvakti",
   "appName": "Ezan Vakti",
-  "webDir": "www",
+  "webDir": "./www",
   "android": {
     "backgroundColor": "#0c101d",
     "allowMixedContent": false,
