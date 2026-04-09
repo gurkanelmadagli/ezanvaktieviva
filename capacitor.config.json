@@ -9,8 +9,6 @@
     "webContentsDebuggingEnabled": true
   },
   "server": {
-    "url": "https://gurkanelmadagli.github.io/ezanvaktieviva/",
-    "cleartext": true
     "androidScheme": "https"
   }
 }

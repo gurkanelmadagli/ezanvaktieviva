@@ -1,3 +1,19 @@
+.tam-alarm-kutu {
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(var(--yesil-rgb), 0.38);
+  background: rgba(var(--yesil-rgb), 0.1);
+}
+
+.tam-alarm-metin {
+  margin: 0;
+}
+
+.tam-alarm-buton {
+  margin-top: 0.6rem;
+}
+
 :root {
   --arkaplan: #15192a;
   --yazi-ana: #f7f4ee;
