@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="tr" translate="no" data-tema="gece">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content"
+    />
+    <meta name="google" content="notranslate" />
+    <!-- Tarayıcı adres çubuğu / üst çubuk ilk karede sayfa rengine yakınsın (Chrome theme-color) -->
+    <meta name="theme-color" content="#0c101d" />
+    <style>
+      html {
+        color-scheme: dark light;
+        background-color: #0c101d;
+      }
+    </style>
+    <meta
+      name="description"
+      content="Namaz vakitleri, kıble, Kur’an, kaza takibi ve bildirimler. Eviva Software."
+    />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>Ezan Vakti</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,600;0,8..60,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="icons/icon-192.png" type="image/png" />
+    <link rel="apple-touch-icon" href="icons/icon-192.png" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="yuklemeEkrani" class="yukleme-ekrani" aria-busy="true" aria-live="polite">
+      <div class="yukleme-icerik">
+        <div class="yukleme-logo" aria-hidden="true">🕌</div>
+        <p id="yuklemeMetin" class="yukleme-metin">Yükleniyor…</p>
+        <div class="yukleme-spinner" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <main class="uygulama">
+      <nav class="menu-sekme" aria-label="Ana menü">
+        <button id="tabEzan" class="sekme-buton aktif" type="button" data-menu="ezan">🕌 Ezan</button>
+        <button id="tabKuran" class="sekme-buton" type="button" data-menu="kuran">📖 Kur'an</button>
+        <button id="tabKible" class="sekme-buton" type="button" data-menu="kible">🧭 Kıble</button>
+        <button id="tabKaza" class="sekme-buton" type="button" data-menu="kaza">📿 Kaza Namazları</button>
+        <button id="tabAyarlar" class="sekme-buton" type="button" data-menu="ayarlar">⚙️ Ayarlar</button>
+        <div class="menu-ayar-alani">
+          <button id="ayarlarBtn" class="ayarlar-buton" type="button" aria-label="Dil Seçimi">
+            <img
+              id="dilBayrakImg"
+              class="dil-bayrak-img"
+              src="icons/flags/tr.svg"
+              alt=""
+              width="22"
+              height="16"
+              decoding="async"
+            />
+            <span id="ayarlarBtnMetin" class="ayarlar-btn-metin">Dil</span>
+          </button>
+          <div id="ayarlarPanel" class="ayarlar-panel gizli">
+            <p id="dilBaslik" class="ayar-baslik">Dil Seçimi</p>
+            <label id="dilEtiket" for="dilSecimi">Dil:</label>
+            <select id="dilSecimi">
+              <option value="tr">Türkçe</option>
+              <option value="id">Endonezce</option>
+              <option value="en">İngilizce</option>
+              <option value="ar">Arapça</option>
+            </select>
+          </div>
+        </div>
+      </nav>
+
+      <header class="ust-kisim">
+        <h1 id="appBaslik">Ezan Vakitleri ve Kaza Takip</h1>
+        <p id="appAciklama">Bulunduğun ili seç, güncel vakitleri gör, kazalarını takip et.</p>
+      </header>
+
+      <section id="menuEzan">
+        <section class="panel">
+          <div class="panel-ust">
+            <h2 id="ezanBaslik">Bugünün Ezan Vakitleri</h2>
+            <div class="secim-alani">
+              <label id="ilEtiket" for="ilSecimi">İl:</label>
+              <select id="ilSecimi"></select>
+              <button id="konumdanVakitBtn" class="yenile-buton" type="button">Konumdan al</button>
+              <button id="yenileBtn" class="yenile-buton" type="button">Yenile</button>
+            </div>
+          </div>
+          <p id="cevrimdisiBanner" class="cevrimdisi-banner gizli" role="status"></p>
+          <div id="kalanSureKutu" class="kalan-sure-kutu">
+            <p id="sonrakiVakitEtiket" class="kalan-etiket">Sonraki vakit</p>
+            <p id="sonrakiVakitAdi" class="kalan-vakit">--</p>
+            <p id="kalanSure" class="kalan-sure">--:--:--</p>
+          </div>
+          <p id="durumYazisi" class="durum-yazisi">Vakitler yükleniyor...</p>
+          <div class="paylas-satir">
+            <button id="paylasVakitlerBtn" class="yenile-buton" type="button">Vakitleri paylaş</button>
+          </div>
+          <section class="ezan-kartlar" id="ezanKartlar"></section>
+          <div class="hadis-kutu">
+            <div class="hadis-ust">
+              <p id="hadisBaslik" class="hadis-baslik">Günün Hadisi</p>
+              <div class="hadis-ust-butonlar">
+                <button id="paylasHadisBtn" class="yenile-buton" type="button">Paylaş</button>
+                <button id="bildirimIzinBtn" class="yenile-buton" type="button">Bildirimleri Aç</button>
+              </div>
+            </div>
+            <p id="hadisMetni" class="hadis-metin">Yükleniyor...</p>
+            <p id="bildirimDurum" class="durum-yazisi">5 saatte bir öğüt bildirimi için izin verebilirsin.</p>
+          </div>
+        </section>
+      </section>
+
+      <section id="menuKible" class="gizli">
+        <section class="panel">
+          <div class="panel-ust">
+            <h2 id="kibleBaslik">Kıble Bulucu</h2>
+          </div>
+          <div class="kible-kutu">
+            <div class="kible-ust">
+              <p id="kibleAltBaslik" class="kible-baslik">Kıble Yönünü Bul</p>
+              <button id="kibleBulBtn" class="yenile-buton" type="button">Konumumdan Bul</button>
+            </div>
+            <div class="kible-icerik">
+              <div class="pusula">
+                <div class="pusula-merkez"></div>
+                <div id="pusulaIbre" class="pusula-ibre"></div>
+              </div>
+              <div>
+                <p id="kibleDurum" class="durum-yazisi">Konum izni vererek kıble yönünü hesaplayabilirsin.</p>
+                <p id="kibleAci" class="kible-aci">Kıble açısı: --°</p>
+              </div>
+            </div>
+          </div>
+          <div class="kalibrasyon-kutu">
+            <p id="kalibrasyonBaslik" class="kalibrasyon-baslik">Kalibrasyon İpucu</p>
+            <p class="kalibrasyon-metin">
+              Pusula doğru göstermiyorsa telefonu elinde tutup havada 8 çizerek 5-10 saniye hareket ettir.
+              Metal yüzeylerden ve mıknatıslı kılıflardan uzaklaşman ölçümü iyileştirir.
+            </p>
+          </div>
+        </section>
+      </section>
+
+      <section id="menuKuran" class="gizli">
+        <section class="panel">
+          <div class="panel-ust">
+            <h2 id="kuranBaslik">Kur'an Oku</h2>
+            <div class="secim-alani">
+              <label id="sureEtiket" for="sureSecimi">Sure:</label>
+              <select id="sureSecimi"></select>
+              <button id="sureYukleBtn" class="yenile-buton" type="button">Yükle</button>
+            </div>
+          </div>
+          <p id="kuranDurumYazisi" class="durum-yazisi">Sure listesi yükleniyor...</p>
+          <section id="ayetlerAlani" class="ayetler-alani"></section>
+        </section>
+      </section>
+
+      <section id="menuAyarlar" class="gizli">
+        <section class="panel">
+          <div class="panel-ust">
+            <h2 id="ayarlarBaslik">Ayarlar</h2>
+          </div>
+          <p id="ayarlarAciklama" class="durum-yazisi ayarlar-aciklama">
+            Bildirimler için önce Ezan sekmesindeki “Bildirimleri Aç” ile izin ver.
+          </p>
+          <p id="ayarBildirimNotu" class="durum-yazisi ayarlar-not"></p>
+          <ul class="ayar-listesi" role="list">
+            <li class="ayar-satir">
+              <div class="ayar-satir-metin">
+                <span id="ayarSessizEtiket" class="ayar-etiket">Vakitlerde otomatik sessize alma</span>
+                <span id="ayarSessizAlt" class="ayar-alt">Namaz vakti aralığında bildirimler sessiz gönderilir.</span>
+              </div>
+              <label class="anahtar">
+                <input id="ayarOtomatikSessiz" type="checkbox" role="switch" />
+                <span class="anahtar-slider" aria-hidden="true"></span>
+              </label>
+            </li>
+            <li class="ayar-satir">
+              <div class="ayar-satir-metin">
+                <span id="ayarKonumEtiket" class="ayar-etiket">Konum</span>
+                <span id="ayarKonumAlt" class="ayar-alt">Kıble bulucu için konum kullanımına izin verir.</span>
+              </div>
+              <label class="anahtar">
+                <input id="ayarKonumAcik" type="checkbox" role="switch" checked />
+                <span class="anahtar-slider" aria-hidden="true"></span>
+              </label>
+            </li>
+            <li class="ayar-satir">
+              <div class="ayar-satir-metin">
+                <span id="ayarTitresimEtiket" class="ayar-etiket">Dokunuşta hafif titreşim</span>
+                <span id="ayarTitresimAlt" class="ayar-alt">Butonlara basınca kısa titreşim (destekleyen cihazlarda).</span>
+              </div>
+              <label class="anahtar">
+                <input id="ayarTitresimAcik" type="checkbox" role="switch" checked />
+                <span class="anahtar-slider" aria-hidden="true"></span>
+              </label>
+            </li>
+            <li class="ayar-satir">
+              <div class="ayar-satir-metin">
+                <span id="ayarManeviOgutEtiket" class="ayar-etiket">Manevi öğüt bildirimleri</span>
+                <span id="ayarManeviOgutAlt" class="ayar-alt">Yaklaşık 5 saatte bir kısa hatırlatma (uygulama açıkken veya arka plandayken).</span>
+              </div>
+              <label class="anahtar">
+                <input id="ayarManeviOgut" type="checkbox" role="switch" checked />
+                <span class="anahtar-slider" aria-hidden="true"></span>
+              </label>
+            </li>
+            <li class="ayar-satir">
+              <div class="ayar-satir-metin">
+                <span id="ayarCumaEtiket" class="ayar-etiket">Cuma sabahı kutlama</span>
+                <span id="ayarCumaAlt" class="ayar-alt">Cuma günü sabah saatlerinde bir kez hayırlı cumalar bildirimi.</span>
+              </div>
+              <label class="anahtar">
+                <input id="ayarCumaBildirim" type="checkbox" role="switch" />
+                <span class="anahtar-slider" aria-hidden="true"></span>
+              </label>
+            </li>
+            <li class="ayar-satir">
+              <div class="ayar-satir-metin">
+                <span id="ayarHadisEtiket" class="ayar-etiket">Günün Hadisi bildirimleri</span>
+                <span id="ayarHadisAlt" class="ayar-alt">Her gün bir kez günün hadisini bildirir.</span>
+              </div>
+              <label class="anahtar">
+                <input id="ayarGununHadisi" type="checkbox" role="switch" />
+                <span class="anahtar-slider" aria-hidden="true"></span>
+              </label>
+            </li>
+          </ul>
+          <div class="ayar-kisayol-kutu">
+            <p id="ayarKisayolBaslik" class="ayar-baslik">Ana ekran kısayolu</p>
+            <p id="ayarKisayolMetin" class="ayar-alt"></p>
+          </div>
+          <div class="ayar-secim-blok">
+            <label id="ayarEzanOnceEtiket" class="ayar-etiket ayar-secim-etiket" for="ayarEzanHatirlatma"
+              >Ezan vakitlerinden önce bildirim</label
+            >
+            <select id="ayarEzanHatirlatma" class="ayar-secim-select" aria-describedby="ayarEzanOnceAlt"></select>
+            <p id="ayarEzanOnceAlt" class="ayar-alt ayar-secim-alt">Seçilen süre kadar önce bir hatırlatma gönderilir.</p>
+          </div>
+        </section>
+      </section>
+
+      <section id="menuKaza" class="gizli">
+        <section class="panel">
+          <div class="panel-ust">
+            <h2 id="kazaBaslik">Kaza Namazı Takibi</h2>
+            <div class="kaza-aksiyonlar">
+              <button id="kazaKaydetBtn" class="yenile-buton" type="button">Kaydet</button>
+              <button id="kazaTemizleBtn" class="sil-buton" type="button">Temizle</button>
+            </div>
+          </div>
+          <p id="kazaDurumYazisi" class="durum-yazisi">Kaza verileri cihaz depolamasından yüklendi.</p>
+          <section class="kartlar" id="kartlar"></section>
+        </section>
+      </section>
+
+      <footer class="telif-footer" role="contentinfo">
+        <p>Copyright © Eviva Software</p>
+        <p class="telif-footer-alt">
+          <a href="privacy.html" id="gizlilikPolitikasi">Gizlilik politikası</a>
+        </p>
+      </footer>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
