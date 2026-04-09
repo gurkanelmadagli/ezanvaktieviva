@@ -493,6 +493,9 @@ let sonVakitlerKaynak = "il";
 let ilkVakitYuklemePromise = null;
 let menuGeriYigini = [];
 let androidGeriDinleyiciKayitli = false;
+let androidGeriKayitSuruyor = false;
+let androidGeriZamanlayiciId = null;
+let tarihceGeriDinleyiciKayitli = false;
 let kibleAcisi = null;
 let cihazBasligi = null;
 let kazaVeri = varsayilanVeri();
@@ -1801,7 +1804,7 @@ function simdikiSekmeOku() {
   return MENU_SEKMELERI.includes(m) ? m : aktifMenuyuYukle();
 }
 
-function sekmeyeGecUygula(hedef) {
+function sekmeyeGecUygula(hedef, gecmis = "replace") {
   if (!MENU_SEKMELERI.includes(hedef)) {
     return;
   }
@@ -1821,25 +1824,52 @@ function sekmeyeGecUygula(hedef) {
   ayarlarMenu.classList.toggle("gizli", hedef !== "ayarlar");
   sekmeler.forEach((s) => s.classList.toggle("aktif", s.dataset.menu === hedef));
   aktifMenuyuKaydet(hedef);
+  if (gecmis === "skip") {
+    return;
+  }
   try {
     const u = new URL(window.location.href);
     u.searchParams.set("menu", hedef);
     const qs = u.searchParams.toString();
     const yeniUrl = `${u.pathname}${qs ? `?${qs}` : ""}${u.hash}`;
-    history.replaceState({ menu: hedef }, "", yeniUrl);
+    const st = { menu: hedef };
+    if (gecmis === "push") {
+      history.pushState(st, "", yeniUrl);
+    } else {
+      history.replaceState(st, "", yeniUrl);
+    }
   } catch {
     /* yok say */
   }
 }
 
+function capacitorAppEklentisiAl() {
+  const P = window.Capacitor?.Plugins;
+  return P?.App ?? P?.app;
+}
+
+function capacitorAndroidMi() {
+  const C = window.Capacitor;
+  if (!C) {
+    return false;
+  }
+  if (typeof C.getPlatform === "function" && C.getPlatform() === "android") {
+    return true;
+  }
+  if (typeof C.isNativePlatform === "function" && C.isNativePlatform()) {
+    return /Android/i.test(navigator.userAgent || "");
+  }
+  return false;
+}
+
 function uygulamadanCik() {
-  const App = window.Capacitor?.Plugins?.App;
+  const App = capacitorAppEklentisiAl();
   if (App?.exitApp) {
     void App.exitApp();
   }
 }
 
-function menuGeriIsle() {
+function menuGeriIsle(geriOlayi) {
   const panel = document.getElementById("ayarlarPanel");
   if (panel && !panel.classList.contains("gizli")) {
     panel.classList.add("gizli");
@@ -1847,7 +1877,11 @@ function menuGeriIsle() {
   }
   if (menuGeriYigini.length > 0) {
     const onceki = menuGeriYigini.pop();
-    sekmeyeGecUygula(onceki);
+    sekmeyeGecUygula(onceki, "replace");
+    return;
+  }
+  if (geriOlayi && geriOlayi.canGoBack) {
+    window.history.back();
     return;
   }
   if (window.confirm(metinAl("uygulamaCikisOnay"))) {
@@ -1856,21 +1890,68 @@ function menuGeriIsle() {
 }
 
 function androidGeriVeCikisBaslat() {
-  const C = window.Capacitor;
-  if (!C || typeof C.isNativePlatform !== "function" || !C.isNativePlatform()) {
-    return;
+  if (androidGeriDinleyiciKayitli) {
+    return true;
   }
-  const App = C.Plugins?.App;
+  if (!window.Capacitor || !capacitorAndroidMi()) {
+    return false;
+  }
+  const App = capacitorAppEklentisiAl();
   if (!App || typeof App.addListener !== "function") {
+    return false;
+  }
+  if (androidGeriKayitSuruyor) {
+    return false;
+  }
+  androidGeriKayitSuruyor = true;
+  Promise.resolve(
+    App.addListener("backButton", (ev) => {
+      menuGeriIsle(ev);
+    })
+  )
+    .then(() => {
+      androidGeriDinleyiciKayitli = true;
+    })
+    .catch(() => {})
+    .finally(() => {
+      androidGeriKayitSuruyor = false;
+    });
+  return false;
+}
+
+function androidGeriVeCikisZamanlaDene() {
+  if (!capacitorAndroidMi()) {
     return;
   }
   if (androidGeriDinleyiciKayitli) {
     return;
   }
-  androidGeriDinleyiciKayitli = true;
-  App.addListener("backButton", () => {
-    menuGeriIsle();
-  }).catch(() => {});
+  if (androidGeriZamanlayiciId != null) {
+    return;
+  }
+  let deneme = 0;
+  androidGeriZamanlayiciId = window.setInterval(() => {
+    deneme += 1;
+    if (androidGeriVeCikisBaslat() || deneme >= 40) {
+      window.clearInterval(androidGeriZamanlayiciId);
+      androidGeriZamanlayiciId = null;
+    }
+  }, 100);
+}
+
+function tarihceGeriBaslat() {
+  if (tarihceGeriDinleyiciKayitli) {
+    return;
+  }
+  tarihceGeriDinleyiciKayitli = true;
+  window.addEventListener("popstate", () => {
+    const m = new URLSearchParams(window.location.search).get("menu");
+    if (!MENU_SEKMELERI.includes(m)) {
+      return;
+    }
+    menuGeriYigini = [];
+    sekmeyeGecUygula(m, "skip");
+  });
 }
 
 function menuleriBaslat() {
@@ -1883,7 +1964,9 @@ function menuleriBaslat() {
   }
 
   menuGeriYigini = [];
-  sekmeyeGecUygula(aktifMenu);
+  sekmeyeGecUygula(aktifMenu, "replace");
+
+  tarihceGeriBaslat();
 
   sekmeler.forEach((sekme) => {
     sekme.addEventListener("click", () => {
@@ -1892,11 +1975,14 @@ function menuleriBaslat() {
       if (simdi !== hedef) {
         menuGeriYigini.push(simdi);
       }
-      sekmeyeGecUygula(hedef);
+      sekmeyeGecUygula(hedef, "push");
     });
   });
 
-  androidGeriVeCikisBaslat();
+  androidGeriVeCikisZamanlaDene();
+  window.addEventListener("load", () => {
+    androidGeriVeCikisZamanlaDene();
+  });
 }
 
 function ayarlarMenusunuBaslat() {
